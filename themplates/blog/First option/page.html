@@ -1,0 +1,209 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" {{with .Site.LanguageCode}} xml:lang="{{.}}" lang="{{.}}" {{end}}>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Grishy</title>
+    <meta name="description" content="">
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <!-- CSS -->
+    <link href="./normalize.css" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,900&amp;subset=cyrillic" rel="stylesheet">
+    <!-- Icons -->
+    <link href="./apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+    <link href="./favicon.png" rel="shortcut icon">
+    <!-- RSS -->
+    <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+    <!-- {{ .Hugo.Generator }} -->
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-wrapper cover-header">
+            <a href="/" class="site-title">Grishy</a>
+            <nav class="site-navigation" aria-label="Main Menu">
+                <!-- <h2 class="screen-reader-text">Explore Website</h2> -->
+                <ul class="menu">
+                    <li class="menu-item current-menu-item" role="presentation"><a href="">Главная</a></li>
+                    <li class="menu-item" role="presentation"><a href="">Проекты</a></li>
+                    <li class="menu-item" role="presentation"><a href="">Обо Мне</a></li>
+                    <li class="menu-item" role="presentation"><a href="">Архив</a></li>
+                </ul>
+            </nav>
+            <!-- .site-navigation -->
+            <!-- <a class="sidebar-toggle"><span class="screen-reader-text">Open Sidebar</span><span class="icon" aria-hidden="true"></span></a> -->
+        </div>
+    </header>
+    <section class="cover-post">
+        <div class="cover-background" style="background-image: url('bg.jpg');"></div>
+        <!-- <div class="cover-background" style="background-image: url('https://unsplash.it/1840/850?random');"></div> -->
+        <div class="container cover-contents">
+            <div class="post-categories">
+                <a class="post-category" href="">Программирование</a>
+                <a class="post-category" href="">Open source</a>
+                <a class="post-category" href="">Алгоритмы</a>
+            </div>
+            <h1 class="post-title">UAC Bypass или история о трех эскалациях</h1>
+            <hr>
+            <p class="post-subtitle">На работе я исследую безопасность ОС или программ. Ниже я расскажу об одном из таких исследований, результатом которого стал полнофункциональный эксплоит типа UAC bypass (да-да, с source-code и гифками).</p>
+            <div class="post-scroll-arrow"></div>
+        </div>
+    </section>
+    <section class="post-meta-bar">
+        <div class="post-meta-contents">
+            <div class="post-meta-author">
+                <a href="/" class="post-meta-author-avatar">
+                    <img alt="" src="https://static.lwn.net/images/conf/2017/connect/ArndBergmann-sm.jpg" class="avatar avatar-80" width="80" height="80" data-no-retina="true"> </a>
+                <div class="post-meta-author-info">
+                    <span>Оригинал</span>
+                    <a href="/">Jonathan Corbet</a>
+                </div>
+            </div>
+            <div class="post-meta-date">
+                <a href="/">
+                    <time datetime="2017-03-18">19 октября 2016 </time>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="container post-contents" role="main">
+        <!-- <img class="alignright" src="http://curious-jgtghostdemo.rhcloud.com/content/images/2016/09/New-York-3.jpg" alt=""> -->
+        <p>Примерно год назад вышла моя статья, которую можно назвать "<a href="#">первой частью</a>" данной статьи. В первой части я насколько смог подробно разобрал тернистый путь разработчика-энтузиаста, который мне удалось когда-то самостоятельно пройти от начала и до конца. Результатом этих усилий стала игра жанра RTS "<b>Земля онимодов</b>" созданная мною в домашних условиях без движков, конструкторов и прочих современных средств разработки. Для проекта использовались C++ и Ассемблер, ну, и в качестве основного инструмента моя собственная голова. В этой статье я постараюсь рассказать о том, как я решил взять на себя роль «реаниматора» и попытаться «воскресить» этот проект. Много внимания будет уделено написанию собственного игрового сервера.</p>
+        <ul>
+            <li>Item number one</li>
+            <li>Item number two
+                <ul>
+                    <li>A nested item</li>
+                </ul>
+            </li>
+            <li>A final item</li>
+        </ul>
+        <!-- <img class="aligncenter" src="http://ember-alt-wp.ecko.me/wp-content/uploads/2017/03/2gk6bdxsxlq-tim-trad-1024x683.jpg"> -->
+        <h2 id="123">Вступление</h2>
+        <p>Вся эта история уходит корнями в 1998 год, когда мир IT был совсем иным. Игра, естественно, изначально проектировалась на существующие в тот момент условия. В частности, я бы сейчас навряд ли стал использовать ассемблер для вывода графики, но в тот момент это мне казалось чуть ли ни единственным решением. Если кому-то интересно, как всё это работает (игровая механика, AI и прочее) и каким было российское «издательство» игр в конце прошлого века, отсылаю вас к <a href="2">первой части статьи</a>.
+        </p>
+        <p>Также существует отдельное описание алгоритма поиска пути, который я когда-то разработал для своей RTS. Этой статье уже более 10 лет и писалась она, скорее, «для себя», но писалась достаточно подробно, чтобы я сам мог вспомнить как всё это работает. Использованное решение, на мой взгляд, обладает высокой эффективностью с точки зрения скорости работы и гарантированно строит путь до цели на клеточном поле с любой степенью сложности расположения препятствий. Ознакомиться с этим способом можно <a href="">тут</a>.
+        </p>
+        <!-- <img class="aligncenter sizefull" src="https://images.unsplash.com/photo-1487339843780-54c8156335d0?dpr=1&auto=format&fit=crop&w=1500&h=844&q=80&cs=tinysrgb&crop=&bg="> -->
+        <h2 id="123">«Оболочка» для игры или то, что можно скачать и посмотреть в исходном коде C++</h2>
+        <p>
+            Как ни странно, этот раздел, который находится в самом начале статьи, я написал в последнюю очередь. По ходу написания статьи я понял, что мне нужно хоть что-то показать «изнутри», иначе все мои объяснения не имеют большого практического смысла и на деле превращаются в словоблудие. А мне бы этого очень не хотелось.
+        </p>
+        <p>Поэтому дополнительно я снабдил статью примером, по которому желающие могут ознакомиться с некоторыми аспектами моего подхода к написанию больших проектов:</p>
+        <!-- <img class="aligncenter sizefull" src="http://lod-cloud.net/versions/2017-02-20/lod.png"> -->
+        <h2>Битва за 16-битный видеорежим</h2>
+        <p>Как бороться с этой проблемой? Как минимум имеется 2 выхода:
+            <ol>
+                <li>Переделать всю графику в игре так, чтобы она могла работать в 24-битном разрешении. В моем случае этот вариант плох тем, что вся графика хранилась в сжатом виде и рисовалась ассемблером. Все функции ассемблера умели работать только с 16-битной графикой, самих функций было много и работали они достаточно быстро, предполагали много нюансов при рисовании и, главное, за эти годы я порядком забыл как всё это функционирует в деталях.</li>
+                <li>Создать в ОЗУ собственную поверхность, которая для игры будет являться экранной памятью. Рисовать всё на этой поверхности, а потом копировать её на реальный экран. Этот вариант я и выбрал в качестве единственно верного. При таком решении также появлялся жирнейший плюс — мне теперь почти не нужен <b>DirectX</b> для работы с графикой, так как единственное что он теперь должен был делать — это копировать мою поверхность на экран. Но есть в таком решении и не сразу очевидный минус — <b>DirectX</b> позволял мне запросто выводить текст, и я, естественно, так и делал. А теперь получалось: «нет <b>DirectX</b> — нет текста». </li>
+            </ol>
+        </p>
+        <h2>History</h2>
+        <p>
+            <!-- <img class="alignleft" src="http://curious-jgtghostdemo.rhcloud.com/content/images/2016/09/New-York-2-1.jpg" alt="">  -->
+            Первыми предшественниками замков стали укрепления VIII—VII веков до&nbsp;н.&nbsp;э., воздвигавшиеся на территории <a href="/wiki/%D0%90%D1%81%D1%81%D0%B8%D1%80%D0%B8%D1%8F" title="Ассирия">Ассирии</a>. Прототипы замков можно видеть в архитектуре <a href="/wiki/%D0%94%D1%80%D0%B5%D0%B2%D0%BD%D0%B8%D0%B9_%D0%A0%D0%B8%D0%BC" title="Древний Рим">Древнего Рима</a>. В эту эпоху укреплялись загородные дворцы римских императоров, как, например, дворец императора <a href="/wiki/%D0%94%D0%B8%D0%BE%D0%BA%D0%BB%D0%B5%D1%82%D0%B8%D0%B0%D0%BD" title="Диоклетиан">Диоклетиана</a> в <a href="/wiki/%D0%A1%D0%B0%D0%BB%D0%BE%D0%BD%D0%B0" title="Салона">Салоне</a> (предместье современного <a href="/wiki/%D0%A1%D0%BF%D0%BB%D0%B8%D1%82_(%D0%B3%D0%BE%D1%80%D0%BE%D0%B4)" title="Сплит (город)">Сплита</a>, <a href="/wiki/%D0%A5%D0%BE%D1%80%D0%B2%D0%B0%D1%82%D0%B8%D1%8F" title="Хорватия">Хорватия</a>). Древнеримские укрепления оказали значительное влияния на архитектуру европейских замков эпохи Средневековья. Фортификационные сооружения получили большое распространение в <a href="/wiki/%D0%92%D0%B8%D0%B7%D0%B0%D0%BD%D1%82%D0%B8%D1%8F" title="Византия">Византии</a>, откуда они к <a href="/wiki/IX_%D0%B2%D0%B5%D0%BA" title="IX век">IX веку</a> проникли в <a href="/wiki/%D0%97%D0%B0%D0%BF%D0%B0%D0%B4%D0%BD%D0%B0%D1%8F_%D0%95%D0%B2%D1%80%D0%BE%D0%BF%D0%B0" title="Западная Европа">Западную Европу</a>.</p>
+        <p>In 1540 French traders from New France built a chateau on <a href="https://en.wikipedia.org/wiki/Castle_Island_(New_York)">Castle Island</a>, within present-day Albany; due to flooding, it was abandoned the next year. In 1614, the Dutch under the command of Hendrick Corstiaensen, rebuilt the French chateau, which they called Fort Nassau. Fort Nassau was the first Dutch settlement in North America, and was located along the Hudson River, also within present-day Albany. The small fort served as a trading post and warehouse. Located on the Hudson River flood plain, the rudimentary "fort" was washed away by flooding in 1617, and abandoned for good after Fort Orange (New Netherland) was built nearby in 1623.</p>
+<!--         <table>
+            <tbody>
+                <tr>
+                    <th>Имя</th>
+                    <th>Стиль</th>
+                    <th>Отзывчивость</th>
+                    <th>Retina</th>
+                    <th>цена</th>
+                </tr>
+                <tr>
+                    <td>Talon</td>
+                    <td>Magazine</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td>$39.00</td>
+                </tr>
+                <tr>
+                    <td>Onyx</td>
+                    <td>Magazine</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-times"></i></td>
+                    <td>$39.00</td>
+                </tr>
+                <tr>
+                    <td>Koala</td>
+                    <td>Multi-Author</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td>$39.00</td>
+                </tr>
+                <tr>
+                    <td>Cedar</td>
+                    <td>Personal</td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td><i class="fa fa-check"></i></td>
+                    <td>$39.00</td>
+                </tr>
+            </tbody>
+        </table> -->
+        <!-- End article -->
+        <div class="post-tags">
+            <a href="#" rel="tag">Земля онимодов</a>
+            <a href="#" rel="tag">RTS</a>
+            <a href="#" rel="tag">Onimod land</a>
+        </div>
+    </section>
+    <section class="post-footer">
+        <div class="container post-footer-wrapper">
+            <ul class="post-share">
+                <li class="post-share-title">Поделиться:</li>
+                <li class="post-share-vk"><a href="#"><i class="fa fa-vk"></i>Vkontakte</a></li>
+                <li class="post-share-twitter"><a href="#"><i class="fa fa-twitter"></i>Twitter</a></li>
+                <li class="post-share-google-plus"><a href="#"><i class="fa fa-google-plus"></i>Google</a></li>
+                </li>
+            </ul>
+            <div class="post-nav-wrapper">
+                <a href="#" class="post-nav post-nav-next">
+                    <span>Предыдущая запись</span>
+                    <h4 class="post-title">2038: остался всего 21 год</h4>
+                </a>
+                <a href="#" class="post-nav post-nav-previous">
+                    <span>Следующая заипсь</span>
+                    <h4 class="post-title">Системы инициализации Unix и Linux после SysV</h4>
+                </a>
+            </div>
+        </div>
+    </section>
+    <center>
+        <h3>Тут доджны быть комментарии)</h3>
+    </center>
+    <footer>
+        <p>Copyright © <a href="#">Grishy</a>. 2017
+            <span class="footer-full"> 
+            • Сделано с
+                <span class="footer-heart-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24" class="footer-heart">
+                    <path d="M12 21.328l-1.453-1.313c-5.156-4.688-8.531-7.734-8.531-11.531 0-3.094 2.391-5.484 5.484-5.484 1.734 0 3.422 0.844 4.5 2.109 1.078-1.266 2.766-2.109 4.5-2.109 3.094 0 5.484 2.391 5.484 5.484 0 3.797-3.375 6.891-8.531 11.578z" />
+                    </svg>
+                </span> • All rights reserved.
+            </span>
+        </p>
+        <ul>
+            <li><a href="#">Проекты</a></li>
+            <li><a href="mailto:mail@grishy.ru">mail@grishy.ru</a></li>
+            <li><a href="#">Обо Мне</a></li>
+            <!-- <li><a href="#">Getting started</a></li> -->
+        </ul>
+        <ul class="footer-socials">
+            <li><a class="img-replace github" href="https://github.com/">Github</a></li>
+            <li><a class="img-replace twitter" href="https://twitter.com/">Twitter</a></li>
+            <li><a class="img-replace facebook" href="https://www.facebook.com/">Facebook</a></li>
+            <li><a class="img-replace google" href="https://plus.google.com/">Google+</a></li>
+            <li><a class="img-replace dribbble" href="https://dribbble.com/">Dribbble</a></li>
+            <li><a class="img-replace rss" href="http://feeds.feedburner.com/">RSS</a></li>
+        </ul>
+    </footer>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

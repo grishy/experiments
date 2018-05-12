@@ -1,0 +1,200 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" {{with .Site.LanguageCode}} xml:lang="{{.}}" lang="{{.}}" {{end}}>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Grishy</title>
+    <meta name="description" content="">
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <!-- CSS -->
+    <link href="./normalize.css" rel="stylesheet">
+    <link href="./style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,900&amp;subset=cyrillic" rel="stylesheet">
+    <!-- Icons -->
+    <link href="./apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+    <link href="./favicon.png" rel="shortcut icon">
+    <!-- RSS -->
+    <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+    <!-- {{ .Hugo.Generator }} -->
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-wrapper">
+            <a href="/" class="site-title">Grishy</a>
+            <nav class="site-navigation" aria-label="Main Menu">
+                <!-- <h2 class="screen-reader-text">Explore Website</h2> -->
+                <ul class="menu">
+                    <li class="menu-item current-menu-item" role="presentation"><a href="">Главная</a></li>
+                    <li class="menu-item" role="presentation"><a href="">Проекты</a></li>
+                    <li class="menu-item" role="presentation"><a href="">Обо Мне</a></li>
+                    <li class="menu-item" role="presentation"><a href="">Архив</a></li>
+                </ul>
+            </nav>
+            <!-- .site-navigation -->
+            <!-- <a class="sidebar-toggle"><span class="screen-reader-text">Open Sidebar</span><span class="icon" aria-hidden="true"></span></a> -->
+        </div>
+    </header>
+    <section class="container" role="main">
+        <section class="post-list">
+            <article class="post clear">
+                <a href="./page.html#" class="post-img">
+                    <img src="img/1.jpg">
+                </a>
+                <div class="post-preview">
+                    <a href="./page.html">
+                        <h2 class="post-contents-title">AliExpress: самые интересные находки этой недели</h2>
+                    </a>
+                    <div class="post-contents-excerpt">
+                        Это будет история младшего разработчика из Яндекс.Паспорта о появлении предложения в стандарт С++, разработанного в соавторстве с Антоном antoshkka Полухиным. Как часто бывает в жизни, что-то новое началось с боли, а точнее — с желания её прекратить.
+                    </div>
+                </div>
+            </article>
+
+            <article class="post clear">
+                <a href="./page.html#" class="post-img">
+                    <img src="img/2.jpg">
+                </a>
+                <div class="post-preview">
+                    <a href="./page.html">
+                        <h2 class="post-contents-title">Системы инициализации Unix и Linux после SysV</h2>
+                    </a>
+                    <div class="post-contents-excerpt">
+                        Вот уже 15 лет прошло со времен первого релиза Xdebug. Прекрасный повод вновь представить эту систему миру и объяснить как и почему она делает то что делает.
+                    </div>
+                </div>
+            </article>
+
+            <article class="post clear">
+                <a href="./page.html#" class="post-img">
+                    <img src="img/3.jpg">
+                </a>
+                <div class="post-preview">
+                    <a href="./page.html">
+                        <h2 class="post-contents-title">Ускоряем восстановление бэкапов в PostgreSQL</h2>
+                    </a>
+                    <div class="post-contents-excerpt">
+                        Недавно я решил заняться ускорением восстановления нашей базы данных в dev-окружении. Как и во многих других проектах, база вначале была небольшой, но со временем значительно выросла. Старый способ проведения операции перестал нас устраивать, а вовремя подвернувшаяся в Slack-канале картинка “<a href="">DB restore foos?</a>” побудила меня к действию.
+                    </div>
+                </div>
+            </article>
+
+            <article class="post clear">
+                <a href="./page.html#" class="post-img">
+                    <img src="img/4.jpg">
+                </a>
+                <div class="post-preview">
+                    <a href="./page.html">
+                        <h2 class="post-contents-title">Интернет вещей — маркетинг или реальная угроза</h2>
+                    </a>
+                    <div class="post-contents-excerpt">
+                        Учёные долго изучали этот процесс и построили математические модели, котороые помогли описать, что же, и как, происходит. Модели были и те, что учитывают только человеческий фактор, и другие — рассматривающие лишь естественные факторы, для того чтобы понять насколько этот процесс естественен. 
+                    </div>
+                </div>
+            </article>
+
+            <article class="post clear">
+                <a href="./page.html#" class="post-img">
+                    <img src="img/5.jpg">
+                </a>
+                <div class="post-preview">
+                    <a href="./page.html">
+                        <h2 class="post-contents-title">Необычный хакатон 20-21 мая: S7 Airlines</h2>
+                    </a>
+                    <div class="post-contents-excerpt">
+                        Уже много лет я веду хакатоны. А Voximplant помогает их организовывать: отправляет меня, предоставляет призы, рассказывает на Хабре. Через две недели состоится хакатон S7, который очень необычен. Это я говорю как человек, который их провел уже несколько десятков. 
+                    </div>
+                </div>
+            </article>
+
+            <article class="post clear">
+                <a href="./page.html#" class="post-img">
+                    <img src="img/6.jpg">
+                </a>
+                <div class="post-preview">
+                    <a href="./page.html">
+                        <h2 class="post-contents-title">Vector и Citrix запустят виртуальные машины в космос [буквально]</h2>
+                    </a>
+                    <div class="post-contents-excerpt">
+                        Компания Vector, запускающая микроспутники, и компания Citrix объявили о том, что отправят мощности современного дата-центра и технологии виртуализации в космос. 
+                    </div>
+                </div>
+            </article>
+
+            <article class="post clear">
+                <a href="./page.html#" class="post-img">
+                    <img src="img/7.jpg">
+                </a>
+                <div class="post-preview">
+                    <a href="./page.html">
+                        <h2 class="post-contents-title">Boxing и unboxing — что быстрее?</h2>
+                    </a>
+                    <div class="post-contents-excerpt">
+                        Заинтересовавшись вопросом скорости работы операций упаковки и распаковки в .NET решил опубликовать свои небольшие и крайне субъективные наблюдения и измерения по этой теме.
+                    </div>
+                </div>
+            </article>
+
+            <article class="post clear">
+                <a href="./page.html#" class="post-img">
+                    <img src="img/8.jpg">
+                </a>
+                <div class="post-preview">
+                    <a href="./page.html">
+                        <h2 class="post-contents-title">Дизайн Кейс: MroSupply E-commerce Site </h2>
+                    </a>
+                    <div class="post-contents-excerpt">
+                        MroSupply — компания которая занимается продажей промышленных товаров с 1898 года. Сайту mrosupply.com сейчас уже более 6 лет, на данный момент на нем насчитывается более 200 брендов и 700 000 доступных товаров для покупки.
+                    </div>
+                </div>
+            </article>
+
+
+        </section>
+    </section>
+    <nav class="pagination-wrapper">
+        <ul class="pagination">
+            <li><a href="#" class="prev page-numbers">«</a></li>
+            <li><a href="#" class="page-numbers">1</a></li>
+            <li><span href="#" class="page-numbers dots">…</span></li>
+            <li><a href="#" class="page-numbers">5</a></li>
+            <li><a href="#" class="page-numbers">6</a></li>
+            <li><span href="#" class="page-numbers current">7</span></li>
+            <li><a href="#" class="page-numbers">8</a></li>
+            <li><a href="#" class="page-numbers">9</a></li>
+            <li><span href="#" class="page-numbers dots">…</span></li>
+            <li><a href="#" class="page-numbers">32</a></li>
+            <li><a href="#" class="next page-numbers">»</a></li>
+        </ul>
+    </nav>
+    <footer>
+        <p>Copyright © <a href="#">Grishy</a>. 2017
+            <span class="footer-full"> 
+            • Сделано с
+                <span class="footer-heart-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" viewBox="0 0 24 24" class="footer-heart">
+                    <path d="M12 21.328l-1.453-1.313c-5.156-4.688-8.531-7.734-8.531-11.531 0-3.094 2.391-5.484 5.484-5.484 1.734 0 3.422 0.844 4.5 2.109 1.078-1.266 2.766-2.109 4.5-2.109 3.094 0 5.484 2.391 5.484 5.484 0 3.797-3.375 6.891-8.531 11.578z" />
+                    </svg>
+                </span> • All rights reserved.
+            </span>
+        </p>
+        <ul>
+            <li><a href="#">Проекты</a></li>
+            <li><a href="mailto:mail@grishy.ru">mail@grishy.ru</a></li>
+            <li><a href="#">Обо Мне</a></li>
+        </ul>
+        <ul class="footer-socials">
+            <li><a class="img-replace github" href="https://github.com/">Github</a></li>
+            <li><a class="img-replace twitter" href="https://twitter.com/">Twitter</a></li>
+            <li><a class="img-replace facebook" href="https://www.facebook.com/">Facebook</a></li>
+            <li><a class="img-replace google" href="https://plus.google.com/">Google+</a></li>
+            <li><a class="img-replace dribbble" href="https://dribbble.com/">Dribbble</a></li>
+            <li><a class="img-replace rss" href="http://feeds.feedburner.com/">RSS</a></li>
+        </ul>
+    </footer>
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

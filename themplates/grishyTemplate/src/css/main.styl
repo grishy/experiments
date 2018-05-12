@@ -1,0 +1,47 @@
+border_color = #dcdcdc
+
+@import 'normalize.css'
+@import 'font-awesome.css'
+
+@import 'nib'
+@import 'standard.styl'
+@import 'sidebar.styl'
+@import 'wrapper.styl'
+
+
+.off-canvas-container
+	display flex
+	min-height 100vh
+	flex-direction column
+
+.FlexEmbed
+	display block
+	overflow hidden
+	position relative
+	&:before
+		content ""
+		display block
+		width 100%
+
+.FlexEmbed--3by1
+	&:before
+		padding-bottom 33.33333%
+
+.FlexEmbed--2by1
+	&:before
+		padding-bottom 50%
+
+.FlexEmbed--16by9
+	&:before
+		padding-bottom 56.25%
+
+.FlexEmbed--4by3
+	&:before
+		padding-bottom 75%
+
+.CoverImage
+	max-height 600px
+	background-position 50%
+	background-repeat no-repeat
+	background-size cover
+

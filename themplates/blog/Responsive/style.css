@@ -1,0 +1,1362 @@
+/*
+http://www.network-science.de/ascii/
+font basic
+
+
+основной  и для h1 h2...
+font-family: Helvetica, Arial, sans-serif;
+Для текста статьи
+font-family: Verdana,sans-serif;
+
+*/
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+::selection {
+    color: #fff;
+    background: #ef7645;
+    text-shadow: none;
+}
+
+::-moz-selection {
+    color: #fff;
+    background: #ef7645;
+    text-shadow: none;
+}
+
+html,
+body,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #fff;
+}
+
+a {
+    text-decoration: none;
+    color: #337ab7;
+    transition: color .15s ease-out, border .15s ease-out, opacity .15s ease-out, background .15s ease-out;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+
+/*
+            db   db d88888b  .d8b.  d8888b. d88888b d8888b. 
+            88   88 88'     d8' `8b 88  `8D 88'     88  `8D 
+            88ooo88 88ooooo 88ooo88 88   88 88ooooo 88oobY' 
+            88~~~88 88~~~~~ 88~~~88 88   88 88~~~~~ 88`8b   
+            88   88 88.     88   88 88  .8D 88.     88 `88. 
+            YP   YP Y88888P YP   YP Y8888D' Y88888P 88   YD 
+*/
+
+.header {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 25px 0;
+}
+
+@media (max-width: 1150px) {
+    .header {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+}
+
+@media (max-width: 640px) {
+    .header {
+        padding-top: 15px;
+    }
+}
+
+.header_title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    float: left;
+    text-transform: uppercase;
+    color: #000;
+}
+
+.header_navigation {
+    margin-top: 16px;
+    float: right;
+    list-style: none;
+}
+
+.header_navigation > li {
+    display: inline-block;
+}
+
+.header_navigation > li > a {
+    font-weight: 400;
+    font-size: 17px;
+    padding: 7px 20px;
+    text-transform: uppercase;
+    color: #111;
+}
+
+.header_navigation > li:focus > a,
+.header_navigation > li:hover > a {
+    background-color: #ffea00;
+}
+
+.header_navigation-toggle {
+    z-index: 1500;
+    position: relative;
+    display: none;
+    float: right;
+    cursor: pointer;
+    transition: color .2s ease-out;
+    padding: 8px;
+}
+
+.header_navigation-toggle:before {
+    font-size: 38px;
+}
+
+
+/*While*/
+
+.header-while .header_title {
+    color: #fff;
+}
+
+.header-while .header_navigation > li > a {
+    color: #fff;
+}
+
+.header-while .header_navigation > li:focus > a,
+.header-while .header_navigation > li:hover > a {
+    color: #000;
+}
+
+.header-while .header_navigation-toggle {
+    color: #fff;
+}
+
+
+/*End while*/
+
+@media (max-width: 800px) {
+    .header_navigation {
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100vh;
+        padding: 0;
+        margin: 0;
+        background: rgba(20, 20, 20, 0.97);
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: transform .2s ease-out, opacity .2s ease-out;
+        opacity: 0;
+    }
+    .header_navigation-toggle {
+        display: block;
+    }
+    .header_navigation > li {
+        padding: 15px;
+    }
+    .header_navigation > li > a {
+        color: #fff;
+        padding: 7px 20px;
+        font-size: 30px;
+    }
+    .header_navigation > li:focus > a,
+    .header_navigation > li:hover > a {
+        color: #000;
+    }
+    .header_navigation__open {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    .header_navigation-toggle__open {
+        color: #fff;
+        position: fixed;
+        right: 25px;
+    }
+}
+
+
+/*
+            d888888b d8b   db d8888b. d88888b db    db 
+              `88'   888o  88 88  `8D 88'     `8b  d8' 
+               88    88V8o 88 88   88 88ooooo  `8bd8'  
+               88    88 V8o88 88   88 88~~~~~  .dPYb.  
+              .88.   88  V888 88  .8D 88.     .8P  Y8. 
+            Y888888P VP   V8P Y8888D' Y88888P YP    YP 
+*/
+
+.posts {
+    margin-top: 120px;
+}
+
+@media (max-width: 640px) {
+    .posts {
+        margin-top: 100px;
+    }
+}
+
+.posts_article {
+    padding: 30px 0;
+    overflow: hidden;
+    border-bottom: solid 1px #eee;
+}
+
+.posts_article:first-child {
+    padding-top: 0;
+}
+
+
+/* --- */
+
+.posts_article .post-thumbnail {
+    position: relative;
+    float: left;
+    width: 32%;
+    height: 204px;
+    background: #000;
+}
+
+.posts_article .post-thumbnail .overlay {
+    font-size: 50px;
+    position: absolute;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    transition: opacity .3s ease-out;
+    opacity: 0;
+    background: rgba(0, 0, 0, .6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.posts_article .post-thumbnail .overlay span {
+    transition: opacity .3s ease-out;
+    opacity: 0;
+}
+
+.posts_article .post-thumbnail .overlay:hover span {
+    opacity: 1;
+}
+
+.posts_article .post-thumbnail .post-featured-image {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    border-radius: 2px;
+}
+
+.posts_article .post-thumbnail:hover .overlay {
+    opacity: 1
+}
+
+
+/* --- */
+
+.posts_article .post-content {
+    float: right;
+    width: 65%;
+    padding-top: 10px;
+}
+
+.posts_article .post-content .post-title {
+    margin: 0;
+    font-size: 26px;
+    line-height: 34px;
+    font-weight: 400;
+    color: #000;
+    letter-spacing: -.5px;
+}
+
+.posts_article .post-content .post-title a {
+    color: #111;
+}
+
+.posts_article .post-content .post-title:hover a {
+    color: #777;
+}
+
+.posts_article .post-content hr {
+    float: left;
+    width: 80px;
+    height: 2px;
+    margin: 15px 0;
+    transition: background-color .2s ease-in-out, width .2s ease-in-out;
+    border: 0;
+    background: #ed5e42;
+}
+
+.posts_article:nth-child(2n) .post-content hr {
+    background: #7fbb00;
+}
+
+.posts_article .post-content .post-title:hover+hr {
+    width: 130px;
+    /*background-color: #0099e5;*/
+}
+
+.posts_article .post-content .excerpt {
+    clear: both;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    color: rgba(25, 26, 27, 1);
+    margin: 0;
+}
+
+@media (max-width: 750px) {
+    .posts_article {
+        padding: 25px 0;
+    }
+    .posts_article .post-content .post-title {
+        line-height: 30px;
+    }
+    .posts_article .post-content hr {
+        float: none;
+        width: 140px;
+        margin: 12px 0;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .posts_article .post-thumbnail {
+        float: none;
+        width: 100%;
+        height: 300px;
+        margin-bottom: 10px;
+    }
+    .posts_article .post-content {
+        float: none;
+        width: 100%;
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 490px) {
+    .posts_article .post-thumbnail {
+        height: 210px;
+    }
+    .posts_article .post-content .post-title {
+        font-size: 22px;
+        line-height: 26px;
+    }
+    .posts_article .post-content .excerpt {
+        font-size: 14px;
+        line-height: 22px;
+    }
+}
+
+
+/*
+            d8888b.  .d8b.   d888b  d888888b d8b   db  .d8b.  d888888b d888888b  .d88b.  d8b   db 
+            88  `8D d8' `8b 88' Y8b   `88'   888o  88 d8' `8b `~~88~~'   `88'   .8P  Y8. 888o  88 
+            88oodD' 88ooo88 88         88    88V8o 88 88ooo88    88       88    88    88 88V8o 88 
+            88~~~   88~~~88 88  ooo    88    88 V8o88 88~~~88    88       88    88    88 88 V8o88 
+            88      88   88 88. ~8~   .88.   88  V888 88   88    88      .88.   `8b  d8' 88  V888 
+            88      YP   YP  Y888P  Y888888P VP   V8P YP   YP    YP    Y888888P  `Y88P'  VP   V8P 
+*/
+
+.pagination-wrapper {
+    padding: 30px 0;
+    text-align: center;
+}
+
+.pagination {
+    display: inline-block;
+    margin: 22px 0;
+}
+
+.pagination > li {
+    display: inline;
+}
+
+.pagination li > span.current,
+.pagination li > a:focus,
+.pagination li > a:hover {
+    color: white;
+    background-color: #ed5e42;
+}
+
+.pagination li > a,
+.pagination li > span {
+    margin: 0 2px;
+    padding: 12px 16px;
+    transition: background-color .2s ease-in-out, color .2s ease-in-out;
+    color: #222;
+    background-color: #eee;
+}
+
+@media (max-width: 640px) {
+    .pagination li {
+        display: none;
+    }
+    .pagination li:first-child {
+        display: inline;
+    }
+    .pagination li:last-child {
+        display: inline;
+    }
+}
+
+
+/*
+            d88888b  .d88b.   .d88b.  d888888b d88888b d8888b. 
+            88'     .8P  Y8. .8P  Y8. `~~88~~' 88'     88  `8D 
+            88ooo   88    88 88    88    88    88ooooo 88oobY' 
+            88~~~   88    88 88    88    88    88~~~~~ 88`8b   
+            88      `8b  d8' `8b  d8'    88    88.     88 `88. 
+            YP       `Y88P'   `Y88P'     YP    Y88888P 88   YD 
+*/
+
+.footer {
+    padding: 2em 0;
+    text-align: center;
+    /*border-top: 1px solid #e1e1e1;*/
+    background: #fbfcfd;
+}
+
+.footer a {
+    transition: all .2s;
+    border-bottom: 1px solid rgba(198, 70, 61, 0);
+}
+
+.footer > p a {
+    font-weight: bold;
+    color: #ed5e42;
+}
+
+.footer > p a:hover {
+    border-bottom: 1px solid #ed5e42;
+}
+
+.footer li {
+    font-size: .9125rem;
+    display: inline-block;
+    margin: 0 1em 1em 0;
+}
+
+.footer li a {
+    font-weight: 400;
+    color: #9f9f9f;
+}
+
+.footer li a:hover {
+    color: #404040;
+    border-bottom-color: #404040;
+}
+
+.footer-socials {
+    margin-top: 0;
+}
+
+.footer-socials a {
+    width: 30px;
+    height: 30px;
+    transition: background-color .2s;
+    border: none;
+    border-radius: .25em;
+    background-color: rgba(239, 239, 239, 0);
+    background-image: url(./socials.svg);
+}
+
+.no-touch .footer-socials a:hover {
+    border: none;
+}
+
+.footer-socials a.twitter {
+    background-position: 0 0;
+}
+
+.footer-socials a.twitter:hover {
+    background-color: #50abf1;
+    background-position: 0 -30px;
+}
+
+.footer-socials a.github {
+    background-position: -30px 0;
+}
+
+.footer-socials a.github:hover {
+    background-color: #333;
+    background-position: -30px -30px;
+}
+
+.footer-socials a.facebook {
+    background-position: -60px 0;
+}
+
+.footer-socials a.facebook:hover {
+    background-color: #3b599a;
+    background-position: -60px -30px;
+}
+
+.footer-socials a.dribbble {
+    background-position: -90px 0;
+}
+
+.footer-socials a.dribbble:hover {
+    background-color: #ec4989;
+    background-position: -90px -30px;
+}
+
+.footer-socials a.google {
+    background-position: -120px 0;
+}
+
+.footer-socials a.google:hover {
+    background-color: #df4a32;
+    background-position: -120px -30px;
+}
+
+.footer-socials a.rss {
+    background-position: -150px 0;
+}
+
+.footer-socials a.rss:hover {
+    background-color: #e77b39;
+    background-position: -150px -30px;
+}
+
+.img-replace {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-indent: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.footer-heart-wrapper {
+    display: inline-block;
+    width: 14px;
+}
+
+.footer-heart {
+    animation: pulse 1s linear infinite;
+    fill: #e73a2d;
+}
+
+.footer-clear {
+    display: none;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 640px) {
+    .footer li {
+        margin-right: 8px;
+    }
+    .footer-clear {
+        display: block;
+    }
+}
+
+
+/*
+             .o88b.  .d88b.  db    db d88888b d8888b.        d8888b.  .d88b.  .d8888. d888888b 
+            d8P  Y8 .8P  Y8. 88    88 88'     88  `8D        88  `8D .8P  Y8. 88'  YP `~~88~~' 
+            8P      88    88 Y8    8P 88ooooo 88oobY'        88oodD' 88    88 `8bo.      88    
+            8b      88    88 `8b  d8' 88~~~~~ 88`8b   C8888D 88~~~   88    88   `Y8b.    88    
+            Y8b  d8 `8b  d8'  `8bd8'  88.     88 `88.        88      `8b  d8' db   8D    88    
+             `Y88P'  `Y88P'     YP    Y88888P 88   YD        88       `Y88P'  `8888Y'    YP    
+*/
+
+.cover-header > a {
+    color: #fff;
+}
+
+.cover-header .menu-item > a {
+    color: #fff;
+}
+
+.cover-header .menu-item:hover > a {
+    color: #000;
+}
+
+.cover-post {
+    position: relative;
+    display: flex;
+    min-height: calc(90vh - 87px);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover-background {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: #404040;
+    background-position: center;
+    background-size: cover;
+    background-blend-mode: overlay;
+}
+
+.cover-gradient {
+    position: absolute;
+    z-index: 150;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0) 15%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.cover-contents {
+    position: relative;
+    z-index: 200;
+    max-width: 1480px;
+    padding: 115px 0;
+}
+
+
+/* ====*/
+
+.cover-contents .post-category {
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    transition: .3s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #111;
+    border: 2px solid transparent;
+    background-color: #ffea00;
+}
+
+@media (max-width: 775px) {
+    .cover-contents .post-categories {
+        margin-bottom: 35px
+    }
+}
+
+@media (max-width: 560px) {
+    .cover-contents .post-categories {
+        margin-bottom: 30px
+    }
+    .cover-contents .post-category {
+        letter-spacing: 0px;
+        padding: 4px;
+    }
+}
+
+@media (max-width: 420px) {
+    .cover-contents .post-categories {
+        margin-bottom: 25px
+    }
+}
+
+.cover-contents .post-category:hover {
+    color: #fff;
+    border-color: #fff;
+    background-color: transparent;
+}
+
+
+/* ====*/
+
+.cover-contents .post-title {
+    font-size: 52px;
+    line-height: 68px;
+    color: #fff;
+}
+
+@media (max-width: 1250px) {
+    .cover-contents .post-title {
+        font-size: 46px;
+        line-height: 60px
+    }
+}
+
+@media (max-width: 980px) {
+    .cover-contents .post-title {
+        font-size: 42px;
+        line-height: 55px
+    }
+}
+
+@media (max-width: 775px) {
+    .cover-contents .post-title {
+        font-size: 38px;
+        line-height: 50px
+    }
+}
+
+@media (max-width: 510px) {
+    .cover-contents .post-title {
+        font-size: 30px;
+        line-height: 42px letter-spacing: 0px;
+    }
+}
+
+@media (max-width: 375px) {
+    .cover-contents .post-title {
+        font-size: 28px;
+        line-height: 38px
+    }
+}
+
+
+/* ====*/
+
+.cover-contents .post-subtitle {
+    font-size: 20px;
+    max-width: 1180px;
+    font-weight: 500;
+    line-height: 32px;
+    margin: 37px auto 0;
+    color: #dcdce4;
+}
+
+@media (max-width: 1250px) {
+    .cover-contents .post-subtitle {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 775px) {
+    .cover-contents .post-subtitle {
+        font-size: 17px;
+        line-height: 30px;
+        margin: 32px auto 0
+    }
+}
+
+@media (max-width: 460px) {
+    .cover-contents .post-subtitle {
+        font-size: 15px;
+        line-height: 28px;
+        margin: 28px auto 0
+    }
+}
+
+@media (max-width: 375px) {
+    .cover-contents .post-subtitle {
+        font-size: 14px;
+        line-height: 26px
+    }
+}
+
+
+/* ====*/
+
+.cover-contents hr {
+    width: 150px;
+    height: 2px;
+    margin: 30px auto 37px;
+    border: 0;
+    background: #ef7645;
+}
+
+@media (max-width: 775px) {
+    .cover-contents hr {
+        margin: 25px auto 32px
+    }
+}
+
+@media (max-width: 560px) {
+    .cover-contents hr {
+        margin: 20px auto 27px
+    }
+}
+
+.cover-scroll-down {
+    position: absolute;
+    z-index: 300;
+    right: 40px;
+    bottom: 40px;
+    width: 25px;
+    height: 36px;
+    margin-left: -12px;
+    cursor: pointer;
+    transition: border-color .2s ease-in;
+    border: 2px solid rgba(255, 255, 255, .27);
+    border-radius: 15px;
+}
+
+.cover-scroll-down .scroll {
+    display: block;
+    width: 3px;
+    height: 6px;
+    margin: 6px auto;
+    animation-name: scroll;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    border-radius: 4px;
+    background: #b0b1b1
+}
+
+.cover-scroll-down:hover {
+    border: 2px solid rgba(255, 255, 255, .4)
+}
+
+@media (max-width: 560px) {
+    .cover-scroll-down {
+        visibility: hidden
+    }
+}
+
+@keyframes scroll {
+    0% {
+        opacity: 0
+    }
+    10% {
+        transform: translateY(0);
+        opacity: 1
+    }
+    100% {
+        transform: translateY(10px);
+        opacity: 0
+    }
+}
+
+
+/*
+            d8888b.  .d88b.  .d8888. d888888b        .88b  d88. d88888b d888888b  .d8b.  
+            88  `8D .8P  Y8. 88'  YP `~~88~~'        88'YbdP`88 88'     `~~88~~' d8' `8b 
+            88oodD' 88    88 `8bo.      88           88  88  88 88ooooo    88    88ooo88 
+            88~~~   88    88   `Y8b.    88    C8888D 88  88  88 88~~~~~    88    88~~~88 
+            88      `8b  d8' db   8D    88           88  88  88 88.        88    88   88 
+            88       `Y88P'  `8888Y'    YP           YP  YP  YP Y88888P    YP    YP   YP 
+*/
+
+.post-meta-bar {
+    z-index: 200;
+    padding: 20px 0;
+    border-bottom: 1px solid #f2f2f7;
+    background: #fff;
+}
+
+.post-meta-bar .post-meta-contents {
+    overflow: hidden;
+    width: 90%;
+    max-width: 905px;
+    margin: 0 auto;
+}
+
+.post-meta-bar .post-meta-author {
+    float: left;
+    overflow: hidden;
+}
+
+.post-meta-bar .post-meta-author-avatar {
+    display: block;
+    float: left;
+    margin-right: 15px;
+}
+
+.post-meta-bar .post-meta-author-avatar img {
+    display: block;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #f2f2f7;
+    border-radius: 100%;
+}
+
+@media (max-width: 500px) {
+    .post-meta-bar .post-meta-author-avatar {
+        display: none;
+    }
+}
+
+.post-meta-bar .post-meta-author-info {
+    font-size: 12px;
+    font-weight: 600;
+    float: left;
+}
+
+.post-meta-bar .post-meta-author-info span {
+    display: block;
+    margin: 5px 0 0;
+    text-transform: uppercase;
+    color: #c2c2cb;
+}
+
+.post-meta-bar .post-meta-author-info a {
+    font-size: 16px;
+    font-weight: 400;
+    display: block;
+    transition: color .2s ease-out, background .2s ease-out, opacity .2s ease-out, border .2s ease-out;
+    color: #58585e;
+}
+
+.post-meta-bar .post-meta-author-info a:focus,
+.post-meta-bar .post-meta-author-info a:hover {
+    color: #272729;
+}
+
+.post-meta-date {
+    float: right;
+    margin: 12px 0;
+    padding: 0;
+    text-transform: uppercase;
+    color: #58585e;
+}
+
+.post-meta-date a {
+    transition: color .2s ease-out, background .2s ease-out, opacity .2s ease-out, border .2s ease-out;
+    color: #58585e;
+}
+
+.post-meta-date a:focus,
+.post-meta-date a:hover {
+    color: #272729;
+}
+
+
+/*
+            d8888b.  .d88b.  .d8888. d888888b 
+            88  `8D .8P  Y8. 88'  YP `~~88~~' 
+            88oodD' 88    88 `8bo.      88    
+            88~~~   88    88   `Y8b.    88    
+            88      `8b  d8' db   8D    88    
+            88       `Y88P'  `8888Y'    YP    
+*/
+
+.post {
+    max-width: 740px;
+    margin: 30px auto;
+    font-family: 'Verdana', serif;
+    color: #44494f;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+    line-height: 25px;
+}
+
+.post p {
+    margin: 25px 0;
+}
+
+@media (max-width: 680px) {
+    .post {
+        font-size: 16px;
+    }
+    .post p {
+        margin: 22px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .post {
+        line-height: 24px;
+    }
+    .post p {
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 340px) {
+    .post {
+        line-height: 22px;
+    }
+    .post p {
+        margin: 16px 0;
+    }
+}
+
+
+/* ==== */
+
+.post a {
+    border-bottom: 1px solid #dedede;
+    transition: color .2s ease-out, border-bottom .2s ease-out
+}
+
+.post a:focus,
+.post a:hover {
+    border-color: #ef7645
+}
+
+
+/* ==== */
+
+.post ul,
+.post ol {
+    margin-left: 6%;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding: 0;
+}
+
+@media (max-width: 680px) {
+    .post ul,
+    .post ol {
+        margin-left: 10px;
+        padding-left: 25px;
+        margin-bottom: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .post ul,
+    .post ol {
+        margin-left: 5px;
+        padding-left: 15px;
+        margin-bottom: 5px;
+    }
+}
+
+
+/* ==== */
+
+.post h1,
+.post h2,
+.post h3,
+.post h4,
+.post h5,
+.post h6 {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #252527;
+    position: relative;
+    letter-spacing: -0.5px;
+}
+
+.post h1:after,
+.post h2:after {
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 135px;
+    height: 3px;
+    margin: 10px 0;
+    content: '';
+    background: #285bcd;
+}
+
+.post h1:after {
+    width: 150px;
+}
+
+.post h1 {
+    font-size: 36px;
+    line-height: 44px;
+    margin: 35px 0 20px;
+}
+
+.post h2 {
+    font-size: 30px;
+    line-height: 38px;
+    margin: 30px 0 25px;
+}
+
+.post h3 {
+    font-size: 24px;
+    line-height: 36px;
+    margin: 28px 0 22px;
+    color: #8d939e;
+}
+
+.post h4,
+.post h5,
+.post h6 {
+    font-size: 21px;
+    line-height: 26px;
+    margin: 24px 0 20px;
+}
+
+@media (max-width: 680px) {
+    .post h1 {
+        font-size: 32px;
+        line-height: 38px;
+        margin: 28px 0 23px
+    }
+    .post h2 {
+        font-size: 26px;
+        line-height: 34px;
+        margin: 28px 0 23px
+    }
+    .post h3 {
+        font-size: 23px;
+        line-height: 30px;
+        margin: 25px 0 20px
+    }
+    .post h4,
+    .post h5,
+    .post h6 {
+        font-size: 20px;
+        line-height: 22px;
+        margin: 22px 0 18px
+    }
+}
+
+@media (max-width: 480px) {
+    .post h1 {
+        font-size: 26px;
+        line-height: 34px;
+    }
+    .post h2 {
+        font-size: 22px;
+        line-height: 28px;
+    }
+    .post h3 {
+        font-size: 18px;
+        line-height: 25px;
+    }
+    .post h4,
+    .post h5,
+    .post h6 {
+        font-size: 17px;
+        line-height: 18px;
+    }
+}
+
+@media (max-width: 340px) {
+    .post h1 {
+        font-size: 24px;
+        line-height: 28px;
+    }
+    .post h2 {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    .post h3 {
+        font-size: 17px;
+        line-height: 20px;
+    }
+    .post h4,
+    .post h5,
+    .post h6 {
+        font-size: 16px;
+        line-height: 16px;
+    }
+}
+
+.post .highlight {
+    background-color: #fdffb6;
+    padding: 0 3px;
+}
+
+.post hr {
+    width: 60%;
+    height: 1px;
+    margin: 40px auto;
+    border: 0;
+    background: #dfdfdf;
+}
+
+.post code {
+    font-family: Consolas, 'Liberation Mono', Courier, monospace;
+    color: #444;
+    border-radius: 3px;
+    background: #f8f8f8;
+    line-height: 32px;
+    margin: 0 2px;
+    padding: 2px 5px;
+    border: 1px solid #eaeaea;
+}
+
+
+/* === */
+
+.post-tags a {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-block;
+    margin: 15px 10px 0 0;
+    padding: 8px 15px;
+    color: #2e2f31;
+    border: 0;
+    border-radius: 3px;
+    background: #f2f4f6
+}
+
+@media (max-width: 530px) {
+    .post-tags a {
+        font-size: 13px;
+        margin: 15px 7px 0 0;
+        padding: 8px 13px;
+    }
+}
+
+@media (max-width: 340px) {
+    .post-tags a {
+        margin: 13px 5px 0 0;
+        padding: 7px 11px;
+    }
+}
+
+.post-tags a:hover {
+    background: #e9ebed
+}
+
+
+/*
+            d8888b.  .d88b.  .d8888. d888888b        .d8888. db   db  .d8b.  d8888b. d88888b 88 `8D .8P Y8. 88'  YP `~~88~~' 88'  YP 88   88 d8' `8b 88 `8D 88'     
+ 88oodD' 88    88 `8bo.      88           `8bo.   88ooo88 88ooo88 88oobY' 88ooooo 88~~~ 88 88 `Y8b. 88 C8888D `Y8b. 88~~~88 88~~~88 88`8b 88~~~~~ 88 `8b d8' db   8D    88           db   8D 88   88 88   88 88 `88. 88.     
+ 88 `Y88P'  `8888Y' YP `8888Y' YP   YP YP   YP 88   YD Y88888P
+
+*/
+
+.post-share {
+    overflow: hidden;
+    margin-top: 55px;
+    margin-bottom: 55px;
+    max-width: 900px;
+    padding: 0;
+    list-style: none;
+    background: #fff;
+}
+
+.post-share li {
+    font-size: 15px;
+    float: left;
+    width: 20%;
+    letter-spacing: -.25px;
+    text-transform: uppercase;
+    color: #222526
+}
+
+.post-share li a,
+.post-share li span {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 30px 0 28px;
+    transition: background .15s ease-out, color .15s ease-out;
+    text-align: center
+}
+
+.post-share li a:after,
+.post-share li span:after {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    display: inline-block;
+    width: 1px;
+    height: 30px;
+    content: '';
+    background: #eee
+}
+
+.post-share li a:hover:after {
+    visibility: hidden
+}
+
+.post-share li i {
+    margin-right: 15px
+}
+
+.post-share li:last-child a:after {
+    visibility: hidden
+}
+
+@media (max-width: 710px) {
+    .post-share li {
+        width: 50%;
+    }
+    .post-share li a,
+    .post-share li span {
+        padding: 20px 0 19px;
+    }
+    .post-share li a:after,
+    .post-share li span:after {
+        top: 16px;
+    }
+    .post-share li:first-child {
+        width: 100%
+    }
+    .post-share li span {
+        border-bottom: 1px solid #eee
+    }
+    .post-share li:nth-child(3) a:after,
+    .post-share li:last-child a:after {
+        display: none
+    }
+}
+
+.post-share span i {
+    color: #879ea5
+}
+
+.post-share .facebook {
+    color: #3b5998
+}
+
+.post-share .facebook:hover {
+    color: #fff;
+    background: #3b5998
+}
+
+.post-share .google {
+    color: #dd4b39
+}
+
+.post-share .google:hover {
+    color: #fff;
+    background: #dd4b39
+}
+
+.post-share .twitter {
+    color: #55acee
+}
+
+.post-share .twitter:hover {
+    color: #fff;
+    background: #55acee
+}
+
+.post-share .linkedin {
+    color: #0976b4
+}
+
+.post-share .linkedin:hover {
+    color: #fff;
+    background: #0976b4
+}

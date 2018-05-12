@@ -1,0 +1,47 @@
+doctype html
+head
+	meta(charset='utf-8')
+	meta(http-equiv='X-UA-Compatible', content='IE=edge')
+	title Grishy
+	meta(name='description', content='Blog and Multipurpose Clean Ghost Theme')
+	meta(name='HandheldFriendly', content='True')
+	meta(name='viewport', content='width=device-width, initial-scale=1.0')
+	link(rel='shortcut icon', href='/assets/favicon.ico')
+	link(rel='stylesheet', href='/assets/main.css', type='text/css', media='all')
+
+	link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic,700', rel='stylesheet', type='text/css')
+	link(href='https://fonts.googleapis.com/css?family=Podkova', rel='stylesheet', type='text/css')
+body
+	.off-canvas-container
+		.sidebar: .row: .sidebar-row
+			h1.sidebar-title-title: a(href='/') Grishy
+			.sidebar-title-description Блог о программировании
+
+			nav.sidebar-nav: ul
+				li(role='presentation')
+					a(href='#') Главная
+				li(role='presentation')
+					a(href='#') Обо Мне
+				li(role='presentation')
+					a(href='#') Проекты
+				li
+					a(href='#') RSS
+			
+
+			ul.sidebar-social
+				li(role='presentation')
+					a(href='#'): i.fa.fa-twitter(aria-hidden='true')
+				li(role='presentation')
+					a(href='#'): i.fa.fa-vk(aria-hidden='true')
+				li(role='presentation')
+					a(href='#'): i.fa.fa-github(aria-hidden='true')
+				li
+					a(href='#'): i.fa.fa-rss(aria-hidden='true')
+
+		.wrapper
+			.post-list
+				- for (var x = 12;x--;)
+					article.post-card-wrap: .post-card
+						a(href='#', title=''): .post-card-img.CoverImage.FlexEmbed.FlexEmbed--16by9(style='background-image: url(https://unsplash.it/1000/#{667 + x}/?random)')
+						time.post-card-date(datetime='2015-12-22') 16 Марта 2016
+						h2.post-card-title: a(title='', href='#') Тренды интернет-рекламы: от видео к виртуальной реальности
