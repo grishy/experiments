@@ -1,0 +1,51 @@
+#main
+	width 100%
+	border-left 1px solid #efeded
+	background-color #e3ebef
+	min-height 100vh
+
+.flex-container
+	padding 1%
+	padding-top 0
+	margin 0
+	list-style none
+	display flex
+	flex-flow row wrap
+	justify-content space-around
+
+.card
+	background #fff
+	max-width 370px
+	margin-top 25px
+
+.card-img
+	height 210px
+	overflow hidden
+	box-shadow: inset 0px -2px 1px rgba(0,0,0,0.6)
+	
+	img
+		transition-duration 5s
+		width 100%
+	&:hover
+		img
+			margin-top -200px
+
+.card-description
+	margin 10px
+
+.card-favicon
+	position: absolute;
+	background-color: rgb(255, 255, 255);
+	border-bottom-right-radius: 2px;
+
+	img
+		margin-top 0 !important
+		width 32px !important
+		padding 5px
+
+.card-title
+	color #24272a
+
+.card-briefly
+	text-indent 10px
+	font-size 14px

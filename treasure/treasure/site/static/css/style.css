@@ -1,0 +1,63 @@
+.g-menu {
+    height: calc(100vh - 65px);
+    padding-left: 40px;
+    position: fixed;
+}
+
+.card .card-content {
+    padding: 10px;
+}
+
+.card .card-action {
+    padding: 10px;
+}
+.card:hover .edit {
+    opacity: 1;
+}
+.card .edit {
+    opacity: 0;
+}
+
+.card .link {
+    color: #827470 !important;
+    /*font-weight: 500;*/
+    border-bottom: 2px solid #fff;
+    line-height: 2;
+    transition: border-bottom .3s ease !important;
+}
+
+.card .link:hover {
+    color: #ff6333 !important;
+    border-bottom: 2px solid #faf;
+}
+
+.card .title-card {
+    color: #212121 !important;
+    font-weight: 500;
+    font-size: 20px;
+    transition: color .3s ease !important;
+}
+
+.card .title-card:hover {
+    color: #656565 !important;
+}
+
+.card .card-action .chip {
+    margin-bottom: 0 !important;
+}
+
+.non-style {
+    all: unset !important;
+}
+
+.tags .chip {
+    transition: background-color .3s ease !important;
+}
+
+.tags .chip:hover {
+    background-color: #c0d6e2 !important;
+}
+
+#image {
+    width: 100%;
+}

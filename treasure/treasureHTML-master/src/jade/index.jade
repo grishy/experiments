@@ -1,0 +1,76 @@
+doctype html
+head
+	meta(charset='utf-8')
+	meta(http-equiv='X-UA-Compatible', content='IE=edge')
+	title Grishy
+	meta(name='description', content='Blog and Multipurpose Clean Ghost Theme')
+	meta(name='HandheldFriendly', content='True')
+	meta(name='viewport', content='width=device-width, initial-scale=1.0')
+	link(rel='shortcut icon', href='/assets/favicon.ico')
+	link(rel='stylesheet', href='/assets/main.css', type='text/css', media='all')
+
+	link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic,700', rel='stylesheet', type='text/css')
+body
+	//- .background-image
+	#wrapper
+		aside#side
+			header#header
+				a(href='')
+					img(src="/assets/logo.png")#logo
+					#title Сокровищница
+
+			nav#categories
+				ul
+					li: form.sl-search: input(type='search', placeholder='Поиск...')
+					li.sl-divider Категории
+
+					li.has-children
+						a(href='') Программирование
+						svg(xmlns='http://www.w3.org/2000/svg'): path(d='M13.3 10l-7.1-7.4c-0.3-0.3-0.3-0.7 0-1 0.3-0.3 0.7-0.3 1 0l7.8 7.9c0.3 0.3 0.3 0.7 0 1l-7.8 7.9c-0.3 0.3-0.7 0.3-1 0s-0.3-0.7 0-1l7.1-7.4z')
+					li.has-children
+						a(href='') Графика
+						svg(xmlns='http://www.w3.org/2000/svg'): path(d='M13.3 10l-7.1-7.4c-0.3-0.3-0.3-0.7 0-1 0.3-0.3 0.7-0.3 1 0l7.8 7.9c0.3 0.3 0.3 0.7 0 1l-7.8 7.9c-0.3 0.3-0.7 0.3-1 0s-0.3-0.7 0-1l7.1-7.4z')
+					li.has-children
+						a(href='') Сервисы
+						svg(xmlns='http://www.w3.org/2000/svg'): path(d='M13.3 10l-7.1-7.4c-0.3-0.3-0.3-0.7 0-1 0.3-0.3 0.7-0.3 1 0l7.8 7.9c0.3 0.3 0.3 0.7 0 1l-7.8 7.9c-0.3 0.3-0.7 0.3-1 0s-0.3-0.7 0-1l7.1-7.4z')
+					li.has-children
+						a(href='') Программы
+						svg(xmlns='http://www.w3.org/2000/svg'): path(d='M13.3 10l-7.1-7.4c-0.3-0.3-0.3-0.7 0-1 0.3-0.3 0.7-0.3 1 0l7.8 7.9c0.3 0.3 0.3 0.7 0 1l-7.8 7.9c-0.3 0.3-0.7 0.3-1 0s-0.3-0.7 0-1l7.1-7.4z')
+					li.has-children
+						a(href='') Сайты
+						svg(xmlns='http://www.w3.org/2000/svg'): path(d='M13.3 10l-7.1-7.4c-0.3-0.3-0.3-0.7 0-1 0.3-0.3 0.7-0.3 1 0l7.8 7.9c0.3 0.3 0.3 0.7 0 1l-7.8 7.9c-0.3 0.3-0.7 0.3-1 0s-0.3-0.7 0-1l7.1-7.4z')
+					li.has-children
+						a(href='') Дизайн
+						svg(xmlns='http://www.w3.org/2000/svg'): path(d='M13.3 10l-7.1-7.4c-0.3-0.3-0.3-0.7 0-1 0.3-0.3 0.7-0.3 1 0l7.8 7.9c0.3 0.3 0.3 0.7 0 1l-7.8 7.9c-0.3 0.3-0.7 0.3-1 0s-0.3-0.7 0-1l7.1-7.4z')
+					li.has-children
+						a(href='') Музыка
+						svg(xmlns='http://www.w3.org/2000/svg'): path(d='M13.3 10l-7.1-7.4c-0.3-0.3-0.3-0.7 0-1 0.3-0.3 0.7-0.3 1 0l7.8 7.9c0.3 0.3 0.3 0.7 0 1l-7.8 7.9c-0.3 0.3-0.7 0.3-1 0s-0.3-0.7 0-1l7.1-7.4z')
+					li.has-children
+						a(href='') Книги
+						svg(xmlns='http://www.w3.org/2000/svg'): path(d='M13.3 10l-7.1-7.4c-0.3-0.3-0.3-0.7 0-1 0.3-0.3 0.7-0.3 1 0l7.8 7.9c0.3 0.3 0.3 0.7 0 1l-7.8 7.9c-0.3 0.3-0.7 0.3-1 0s-0.3-0.7 0-1l7.1-7.4z')
+					li.has-children
+						a(href='') Математика
+						svg(xmlns='http://www.w3.org/2000/svg'): path(d='M13.3 10l-7.1-7.4c-0.3-0.3-0.3-0.7 0-1 0.3-0.3 0.7-0.3 1 0l7.8 7.9c0.3 0.3 0.3 0.7 0 1l-7.8 7.9c-0.3 0.3-0.7 0.3-1 0s-0.3-0.7 0-1l7.1-7.4z')
+					li.sl-all
+						a(href='') Полный список
+
+						
+					li.sl-divider Информация
+					li(style="cursor: help;")
+						a(href='' style="cursor: help;") Что это?
+					li
+						a(href='') Контакты
+					li.sl-add
+						a(href='') Предложить
+
+		main#main
+			ul.flex-container
+				-for(var x = 1;x<=18;x++)
+					li.card
+						.card-img
+							.card-favicon
+								img(src="/assets/favicon.png")
+							img(src="/assets/test.jpg")
+						.card-description
+							a.card-title(href='') Типограф Муравьёва
+							p.card-briefly Инструмент для форматирования текста с использованием норм, правил и специфики русского языка и экранной типографики
