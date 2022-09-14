@@ -1,20 +1,20 @@
 ---
 - name: Configure Device
   hosts: all
-  become: True
+  become: true
   tasks:
     # Update package
-    - name: update apt repo and cache on all Debian/Ubuntu boxes
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
       ansible.builtin.apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
 
-    - name: upgrade all packages on servers
+    - name: Upgrade all packages on servers
       ansible.builtin.apt: upgrade=dist force_apt_get=yes
 
-    - name: check if a reboot is needed on all servers
+    - name: Check if a reboot is needed on all servers
       register: reboot_required_file
-      stat: path=/var/run/reboot-required get_md5=no
+      ansible.builtin.stat: path=/var/run/reboot-required get_md5=no
 
-    - name: reboot the box if kernel updated
+    - name: Reboot the box if kernel updated
       ansible.builtin.reboot:
         msg: "Reboot initiated by Ansible for kernel updates"
         connect_timeout: 5
@@ -25,7 +25,7 @@
       when: reboot_required_file.stat.exists
 
     # Install packages
-    - name: install packages for oh my zsh
+    - name: Install packages for Oh My Zsh
       ansible.builtin.apt:
         pkg:
           - zsh
@@ -34,22 +34,22 @@
           - curl
 
     # Install Oh My Zsh
-    - name: install oh my zsh
+    - name: Install Oh My Zsh
       become: false
       ansible.builtin.git:
         repo: https://github.com/ohmyzsh/ohmyzsh.git
         dest: "/home/{{ ansible_user }}/.oh-my-zsh"
         depth: 1
-        clone: yes
-        update: yes
+        clone: true
+        update: true
 
-    - name: set default shell for users
+    - name: Set default shell for users
       become: true
-      user:
+      ansible.builtin.user:
         name: "{{ ansible_user }}"
-        shell: /bin/zsh
+        shell: "/bin/zsh"
 
-    - name: copy zshrc
+    - name: Copy zshrc
       become: false
       ansible.builtin.copy:
         src: files/zshrc
@@ -57,34 +57,34 @@
 
     # Install transmission
     # source: https://github.com/elboletaire/ansible-transmission
-    - name: install transmission
+    - name: Install transmission
       ansible.builtin.apt:
         pkg:
           - transmission-daemon
 
-    - name: make sure transmission is not running
-      service:
+    - name: Make sure transmission is not running
+      ansible.builtin.service:
         name: transmission-daemon
         state: stopped
       ignore_errors: true
       tags: transmission
 
-    - name: start transmission
-      service:
+    - name: Start transmission
+      ansible.builtin.service:
         name: transmission-daemon
         state: started
       ignore_errors: true
       tags: transmission
 
     # Install ntfs
-    - name: install ntfs
+    - name: Install ntfs
       ansible.builtin.apt:
         pkg:
           - fuse
           - ntfs-3g
 
     # Mount
-    - name: create a directory for torrents
+    - name: Create a directory for torrents
       ansible.builtin.file:
         path: /mnt/usb
         state: directory
