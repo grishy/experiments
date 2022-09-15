@@ -32,12 +32,14 @@ $ ansible-galaxy collection install ansible.posix        # Install collection
 
 ## Set up
 
+```
+$ ansible-playbook playbook.yaml
+```
+
 - `-k, --ask-pass`: ask for connection password
 - `-K, --ask-become-pass`: ask for privilege escalation password
 
-```
-$ ansible-playbook playbook.yaml -K
-```
+First time use `-K`
 
 ## Local debug
 ```
@@ -47,3 +49,4 @@ $ vagrant up
 ## Reference
 
 - https://github.com/notfoundsam/raspberry-plex-ansible
+- https://github.com/elboletaire/ansible-transmission

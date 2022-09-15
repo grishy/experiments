@@ -1,13 +1,24 @@
 ---
 - name: Configure Device
   hosts: all
-  become: true
+  gather_facts: false
   tasks:
-    # Update package
+    - name: Make users passwordless for sudo in group
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%{{ ansible_user }}'
+        line: '%{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    # Update and install packages
     - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      become: true
       ansible.builtin.apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
 
     - name: Upgrade all packages on servers
+      become: true
       ansible.builtin.apt: upgrade=dist force_apt_get=yes
 
     - name: Check if a reboot is needed on all servers
@@ -15,6 +26,7 @@
       ansible.builtin.stat: path=/var/run/reboot-required get_md5=no
 
     - name: Reboot the box if kernel updated
+      become: true
       ansible.builtin.reboot:
         msg: "Reboot initiated by Ansible for kernel updates"
         connect_timeout: 5
@@ -25,8 +37,10 @@
       when: reboot_required_file.stat.exists
 
     - name: Install packages
+      become: true
       ansible.builtin.apt:
-        pkg:
+        clean: true
+        name:
           - zsh
           - git
           - htop
@@ -39,7 +53,6 @@
 
     # Install Oh My Zsh
     - name: Install Oh My Zsh
-      become: false
       ansible.builtin.git:
         repo: https://github.com/ohmyzsh/ohmyzsh.git
         dest: "/home/{{ ansible_user }}/.oh-my-zsh"
@@ -54,22 +67,16 @@
         shell: "/bin/zsh"
 
     - name: Copy zshrc
-      become: false
       ansible.builtin.copy:
         src: files/zshrc
         dest: "/home/{{ ansible_user }}/.zshrc"
         mode: "0644"
 
     # External hard drive
-    - name: Create a directory for external drive
-      ansible.builtin.file:
-        path: /mnt/usb_disk
-        state: directory
-        mode: "0755"
-
-    - name: Mount up device by UUID
+    - name: Mount up device by label (NTFS)
+      become: true
       ansible.posix.mount:
-        path: /mnt/usb_disk
+        path: "{{ mount_dir }}"
         boot: true
         src: LABEL={{ usb_volume_label }}
         fstype: ntfs
@@ -77,18 +84,39 @@
         state: mounted
 
     # Install transmission
-    # source: https://github.com/elboletaire/ansible-transmission
+    - name: Temporary stop transmission
+      become: true
+      ansible.builtin.service:
+        state: stopped
+        name: transmission-daemon
 
-    # - name: Make sure transmission is not running
-    #   ansible.builtin.service:
-    #     name: transmission-daemon
-    #     state: stopped
-    #   ignore_errors: true
-    #   tags: transmission
+    - name: Add watch dir
+      ansible.builtin.file:
+        state: directory
+        path: "{{ transmission_dir_torrents }}"
+        mode: 'umask'
 
-    # - name: Start transmission
-    #   ansible.builtin.service:
-    #     name: transmission-daemon
-    #     state: started
-    #   ignore_errors: true
-    #   tags: transmission
+    - name: Add incomplete folder
+      ansible.builtin.file:
+        state: directory
+        path: "{{ transmission_dir_incomplete }}"
+        mode: 'umask'
+
+    - name: Add downloads folder
+      ansible.builtin.file:
+        state: directory
+        path: "{{ transmission_dir_download }}"
+        mode: 'umask'
+
+    - name: Copy transmission configuration
+      become: true
+      ansible.builtin.template:
+        src: transmission-settings.json.j2
+        dest: "/etc/transmission-daemon/settings.json"
+        mode: '0644'
+
+    - name: Start transmission
+      become: true
+      ansible.builtin.service:
+        state: started
+        name: transmission-daemon

@@ -4,7 +4,15 @@ pi_list:
     #   ansible_user: vagrant
     #   ansible_host: 192.168.33.10
     #   usb_volume_label: usb_external
+    #   
     pi:
+      # SSH
       ansible_user: pi
       ansible_host: 192.168.0.9
+      # USB
       usb_volume_label: usb_external
+      mount_dir: /mnt/usb_disk
+      # Transmission
+      transmission_dir_torrents: /mnt/usb_disk/torrents
+      transmission_dir_incomplete: /mnt/usb_disk/incomplete
+      transmission_dir_download: /mnt/usb_disk/download
