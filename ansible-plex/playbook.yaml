@@ -50,6 +50,8 @@
           - ntfs-3g
           # Transmission
           - transmission-daemon
+          # Plex
+          - apt-transport-https
 
     # Install Oh My Zsh
     - name: Install Oh My Zsh
@@ -83,7 +85,7 @@
         opts: defaults,auto,users,rw,nofail,umask=000
         state: mounted
 
-    # Install transmission
+    # Install Transmission
     - name: Temporary stop transmission
       become: true
       ansible.builtin.service:
@@ -120,3 +122,25 @@
       ansible.builtin.service:
         state: started
         name: transmission-daemon
+
+    # # Install Plex
+    # - name: Add Plex key
+    #   become: true
+    #   ansible.builtin.apt_key:
+    #     url: "https://downloads.plex.tv/plex-keys/PlexSign.key"
+    #     state: present
+
+    # - name: Create Plex list
+    #   become: true
+    #   ansible.builtin.copy:
+    #     dest: "/etc/apt/sources.list.d/plexmediaserver.list"
+    #     mode: 'umask'
+    #     content: |
+    #       deb https://downloads.plex.tv/repo/deb public main
+
+    # - name: Install plex
+    #   become: true
+    #   ansible.builtin.apt:
+    #     name: plexmediaserver
+    #     update_cache: true
+    #     state: present

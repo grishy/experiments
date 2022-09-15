@@ -3,13 +3,13 @@
 ## Preparation
 
 1. Download `Raspberry Pi Imager`
-    1. Link: https://www.raspberrypi.com/software/
+   1. Link: https://www.raspberrypi.com/software/
 2. Select `Ubuntu 22.04 x64`
 3. Set additional params before **Write**
-    1. SSH username and password
-    2. Provide a SSH public key
+   1. SSH username and password
+   2. Provide a SSH public key
 4. Format to NTFS (https://askubuntu.com/q/164728)
-    1. Linux: `sudo mkfs -t ntfs /dev/sda1`
+   1. Linux: `sudo mkfs -t ntfs /dev/sda1`
 
 ## Expectations
 
@@ -18,6 +18,7 @@
 - USB external disk in NTFS
 
 ## Before
+
 Configure an **inventory.yaml** file.
 
 1. Formatting the USB to NTFS
@@ -42,6 +43,7 @@ $ ansible-playbook playbook.yaml
 First time use `-K`
 
 ## Local debug
+
 ```
 $ vagrant up
 ```
