@@ -3,3 +3,4 @@ pi_list:
     pi:
       ansible_user: vagrant
       ansible_host: 192.168.33.10
+      usb_volume_label: usb_external

@@ -41,7 +41,7 @@
         dest: "/home/{{ ansible_user }}/.oh-my-zsh"
         depth: 1
         clone: true
-        update: true
+        version: 7dcabbe6826073ef6069c8a4b6f9a943f00d2df0
 
     - name: Set default shell for users
       become: true
@@ -54,6 +54,29 @@
       ansible.builtin.copy:
         src: files/zshrc
         dest: "/home/{{ ansible_user }}/.zshrc"
+        mode: "0644"
+
+    # External hard drive
+    - name: Tools for external hard drive
+      ansible.builtin.apt:
+        pkg:
+          - fuse
+          - ntfs-3g
+
+    - name: Create a directory for external drive
+      ansible.builtin.file:
+        path: /mnt/usb_disk
+        state: directory
+        mode: "0755"
+
+    - name: Mount up device by UUID
+      ansible.posix.mount:
+        path: /mnt/usb_disk
+        boot: true
+        src: LABEL={{ usb_volume_label }}
+        fstype: ntfs
+        opts: defaults,auto,users,rw,nofail,umask=000
+        state: mounted
 
     # Install transmission
     # source: https://github.com/elboletaire/ansible-transmission
@@ -62,30 +85,17 @@
         pkg:
           - transmission-daemon
 
-    - name: Make sure transmission is not running
-      ansible.builtin.service:
-        name: transmission-daemon
-        state: stopped
-      ignore_errors: true
-      tags: transmission
+    # - name: Make sure transmission is not running
+    #   ansible.builtin.service:
+    #     name: transmission-daemon
+    #     state: stopped
+    #   ignore_errors: true
+    #   tags: transmission
 
-    - name: Start transmission
-      ansible.builtin.service:
-        name: transmission-daemon
-        state: started
-      ignore_errors: true
-      tags: transmission
+    # - name: Start transmission
+    #   ansible.builtin.service:
+    #     name: transmission-daemon
+    #     state: started
+    #   ignore_errors: true
+    #   tags: transmission
 
-    # Install ntfs
-    - name: Install ntfs
-      ansible.builtin.apt:
-        pkg:
-          - fuse
-          - ntfs-3g
-
-    # Mount
-    - name: Create a directory for torrents
-      ansible.builtin.file:
-        path: /mnt/usb
-        state: directory
-        mode: "0755"
