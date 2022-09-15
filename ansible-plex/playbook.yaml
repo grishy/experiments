@@ -24,14 +24,18 @@
         test_command: uptime
       when: reboot_required_file.stat.exists
 
-    # Install packages
-    - name: Install packages for Oh My Zsh
+    - name: Install packages
       ansible.builtin.apt:
         pkg:
           - zsh
           - git
           - htop
           - curl
+          # NTFS
+          - fuse
+          - ntfs-3g
+          # Transmission
+          - transmission-daemon
 
     # Install Oh My Zsh
     - name: Install Oh My Zsh
@@ -57,12 +61,6 @@
         mode: "0644"
 
     # External hard drive
-    - name: Tools for external hard drive
-      ansible.builtin.apt:
-        pkg:
-          - fuse
-          - ntfs-3g
-
     - name: Create a directory for external drive
       ansible.builtin.file:
         path: /mnt/usb_disk
@@ -80,10 +78,6 @@
 
     # Install transmission
     # source: https://github.com/elboletaire/ansible-transmission
-    - name: Install transmission
-      ansible.builtin.apt:
-        pkg:
-          - transmission-daemon
 
     # - name: Make sure transmission is not running
     #   ansible.builtin.service:
@@ -98,4 +92,3 @@
     #     state: started
     #   ignore_errors: true
     #   tags: transmission
-

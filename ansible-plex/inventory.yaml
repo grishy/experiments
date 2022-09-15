@@ -1,6 +1,10 @@
 pi_list:
   hosts:
+    # vagrant:
+    #   ansible_user: vagrant
+    #   ansible_host: 192.168.33.10
+    #   usb_volume_label: usb_external
     pi:
-      ansible_user: vagrant
-      ansible_host: 192.168.33.10
+      ansible_user: pi
+      ansible_host: 192.168.0.9
       usb_volume_label: usb_external

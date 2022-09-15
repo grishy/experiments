@@ -32,8 +32,11 @@ $ ansible-galaxy collection install ansible.posix        # Install collection
 
 ## Set up
 
+- `-k, --ask-pass`: ask for connection password
+- `-K, --ask-become-pass`: ask for privilege escalation password
+
 ```
-$ ansible-playbook playbook.yaml
+$ ansible-playbook playbook.yaml -K
 ```
 
 ## Local debug
