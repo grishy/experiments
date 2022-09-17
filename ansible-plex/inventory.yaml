@@ -8,9 +8,9 @@ pi_list:
     pi:
       # SSH
       ansible_user: pi
-      ansible_host: 192.168.0.9
+      ansible_host: 192.168.2.131
       # USB
-      usb_volume_label: usb_external
+      usb_volume_label: HDD
       mount_dir: /mnt/usb_disk
       # Transmission
       transmission_dir_torrents: /mnt/usb_disk/torrents
