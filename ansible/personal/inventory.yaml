@@ -1,0 +1,8 @@
+host_list:
+  hosts:
+    vagrant:
+      ansible_user: vagrant
+      ansible_host: 192.168.33.10
+    # vds:
+    #   ansible_user: pi
+    #   ansible_host: 192.168.2.131

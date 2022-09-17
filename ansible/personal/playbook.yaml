@@ -1,0 +1,67 @@
+---
+- name: Configure Device
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Make users passwordless for sudo in group
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%{{ ansible_user }}'
+        line: '%{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    # Update and install packages
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      become: true
+      ansible.builtin.apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+    - name: Upgrade all packages on servers
+      become: true
+      ansible.builtin.apt: upgrade=dist force_apt_get=yes
+
+    - name: Check if a reboot is needed on all servers
+      register: reboot_required_file
+      ansible.builtin.stat: path=/var/run/reboot-required get_md5=no
+
+    - name: Reboot the box if kernel updated
+      become: true
+      ansible.builtin.reboot:
+        msg: "Reboot initiated by Ansible for kernel updates"
+        connect_timeout: 5
+        reboot_timeout: 300
+        pre_reboot_delay: 0
+        post_reboot_delay: 30
+        test_command: uptime
+      when: reboot_required_file.stat.exists
+
+    - name: Install packages
+      become: true
+      ansible.builtin.apt:
+        state: present
+        name:
+          - zsh
+          - git
+          - htop
+          - curl
+
+    # Install Oh My Zsh
+    - name: Install Oh My Zsh
+      ansible.builtin.git:
+        repo: https://github.com/ohmyzsh/ohmyzsh.git
+        dest: "/home/{{ ansible_user }}/.oh-my-zsh"
+        clone: true
+        version: 7dcabbe6826073ef6069c8a4b6f9a943f00d2df0
+
+    - name: Set default shell for users
+      become: true
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        shell: "/bin/zsh"
+
+    - name: Copy zshrc
+      ansible.builtin.copy:
+        src: files/zshrc
+        dest: "/home/{{ ansible_user }}/.zshrc"
+        mode: "0644"

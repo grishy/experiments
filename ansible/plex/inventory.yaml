@@ -10,7 +10,7 @@ pi_list:
       ansible_user: pi
       ansible_host: 192.168.2.131
       # USB
-      usb_volume_label: HDD
+      usb_volume_label: usb_external
       mount_dir: /mnt/usb_disk
       # Transmission
       transmission_dir_torrents: /mnt/usb_disk/torrents

@@ -34,13 +34,16 @@ $ ansible-galaxy collection install ansible.posix        # Install collection
 ## Set up
 
 ```
-$ ansible-playbook playbook.yaml
+$ ansible-playbook playbook.yaml -K
 ```
 
 - `-k, --ask-pass`: ask for connection password
 - `-K, --ask-become-pass`: ask for privilege escalation password
 
 First time use `-K`
+
+- `<ip>:32400/web` - Plex
+- `<ip>:9091/` - Transmission
 
 ## Local debug
 

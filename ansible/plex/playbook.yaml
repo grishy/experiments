@@ -39,7 +39,7 @@
     - name: Install packages
       become: true
       ansible.builtin.apt:
-        clean: true
+        state: present
         name:
           - zsh
           - git
@@ -59,7 +59,6 @@
       ansible.builtin.git:
         repo: https://github.com/ohmyzsh/ohmyzsh.git
         dest: "/home/{{ ansible_user }}/.oh-my-zsh"
-        depth: 1
         clone: true
         version: 7dcabbe6826073ef6069c8a4b6f9a943f00d2df0
 
@@ -83,16 +82,9 @@
         boot: true
         src: LABEL={{ usb_volume_label }}
         fstype: ntfs
-        opts: defaults,auto,users,rw,nofail,umask=000
         state: mounted
 
     # Install Transmission
-    - name: Temporary stop transmission
-      become: true
-      ansible.builtin.service:
-        state: stopped
-        name: transmission-daemon
-
     - name: Add watch dir
       ansible.builtin.file:
         state: directory
@@ -110,6 +102,12 @@
         state: directory
         path: "{{ transmission_dir_download }}"
         mode: 'umask'
+
+    - name: Temporary stop transmission
+      become: true
+      ansible.builtin.service:
+        state: stopped
+        name: transmission-daemon
 
     - name: Copy transmission configuration
       become: true
@@ -145,4 +143,3 @@
         name: plexmediaserver
         update_cache: true
         state: present
- 
