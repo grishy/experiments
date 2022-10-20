@@ -1,0 +1,13 @@
+# Dependency directories
+node_modules/
+
+# Editor
+.idea/
+.vscode/
+
+# Mac OS
+.DS_Store
+
+# Public files
+.cache/
+public/
