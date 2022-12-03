@@ -10,11 +10,6 @@
 $ ansible-playbook playbook.yaml -K
 ```
 
-- `-k, --ask-pass`: ask for connection password
-- `-K, --ask-become-pass`: ask for privilege escalation password
-
-First time use `-K`
-
 ## Local debug
 
 ```

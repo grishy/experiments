@@ -8,22 +8,29 @@
       ansible.builtin.lineinfile:
         path: /etc/sudoers
         state: present
-        regexp: '^%{{ ansible_user }}'
-        line: '%{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL'
-        validate: 'visudo -cf %s'
+        regexp: "^%{{ ansible_user }}"
+        line: "%{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL"
+        validate: "visudo -cf %s"
 
     # Update and install packages
     - name: Update apt repo and cache on all Debian/Ubuntu boxes
       become: true
-      ansible.builtin.apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+      ansible.builtin.apt:
+        update_cache: true
+        force_apt_get: true
+        cache_valid_time: 3600
 
     - name: Upgrade all packages on servers
       become: true
-      ansible.builtin.apt: upgrade=dist force_apt_get=yes
+      ansible.builtin.apt:
+        upgrade: dist
+        force_apt_get: true
 
     - name: Check if a reboot is needed on all servers
       register: reboot_required_file
-      ansible.builtin.stat: path=/var/run/reboot-required get_md5=no
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+        get_md5: false
 
     - name: Reboot the box if kernel updated
       become: true
@@ -44,24 +51,76 @@
           - zsh
           - git
           - htop
+          - btop
           - curl
 
-    # Install Oh My Zsh
-    - name: Install Oh My Zsh
+    # Set up terminal
+    - name: Clone Oh My Zsh
       ansible.builtin.git:
         repo: https://github.com/ohmyzsh/ohmyzsh.git
-        dest: "/home/{{ ansible_user }}/.oh-my-zsh"
+        dest: "~/.oh-my-zsh"
         clone: true
-        version: 7dcabbe6826073ef6069c8a4b6f9a943f00d2df0
+        depth: 1
+        version: master
+
+    - name: Clone Powerlevel10k
+      ansible.builtin.git:
+        repo: https://github.com/romkatv/powerlevel10k.git
+        dest: "~/.oh-my-zsh/custom/themes/powerlevel10k"
+        clone: true
+        depth: 1
+        version: master
+
+    - name: Clone zsh-autosuggestions
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions.git
+        dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+        clone: true
+        depth: 1
+        version: master
+
+    - name: Clone zsh-syntax-highlighting
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+        dest: "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+        clone: true
+        depth: 1
+        version: master
+
+    - name: Clone fzf
+      ansible.builtin.git:
+        repo: https://github.com/junegunn/fzf.git
+        dest: "~/.fzf"
+        clone: true
+        depth: 1
+        version: 0.35.1
+
+    - name: Download fzf binary
+      ansible.builtin.command: ~/.fzf/install --bin
+      register: result
+      changed_when:
+        - '"Already exists" not in result.stdout'
+
+    - name: Write .zshrc
+      ansible.builtin.copy:
+        src: files/zshrc
+        dest: "~/.zshrc"
+        mode: "0644"
+
+    - name: Write .p10k.zsh
+      ansible.builtin.copy:
+        src: files/p10k.zsh
+        dest: "~/.p10k.zsh"
+        mode: "0644"
+
+    - name: Write .fzf.zsh
+      ansible.builtin.copy:
+        src: files/fzf.zsh
+        dest: "~/.fzf.zsh"
+        mode: "0644"
 
     - name: Set default shell for users
       become: true
       ansible.builtin.user:
         name: "{{ ansible_user }}"
         shell: "/bin/zsh"
-
-    - name: Copy zshrc
-      ansible.builtin.copy:
-        src: files/zshrc
-        dest: "/home/{{ ansible_user }}/.zshrc"
-        mode: "0644"
