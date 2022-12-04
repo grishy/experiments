@@ -3,6 +3,7 @@
   hosts: all
   gather_facts: false
   tasks:
+    # Make it more admin friendly
     - name: Make users passwordless for sudo in group
       become: true
       ansible.builtin.lineinfile:
@@ -11,6 +12,18 @@
         regexp: "^%{{ ansible_user }}"
         line: "%{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL"
         validate: "visudo -cf %s"
+
+    - name: Set authorized key
+      ansible.posix.authorized_key:
+        user: "{{ ansible_user }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+    - name: Generate SSH keypair on ssh client
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        generate_ssh_key: true
+      become: true
 
     # Update and install packages
     - name: Update apt repo and cache on all Debian/Ubuntu boxes
