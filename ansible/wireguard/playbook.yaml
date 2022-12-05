@@ -1,0 +1,139 @@
+---
+- name: Configure Device
+  hosts: all
+  gather_facts: false
+  tasks:
+    # Make it more admin friendly
+    - name: Make users passwordless for sudo in group
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: "^%{{ ansible_user }}"
+        line: "%{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL"
+        validate: "visudo -cf %s"
+
+    - name: Set authorized key
+      ansible.posix.authorized_key:
+        user: "{{ ansible_user }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+    - name: Generate SSH keypair on ssh client
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        generate_ssh_key: true
+      become: true
+
+    # Update and install packages
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        force_apt_get: true
+        cache_valid_time: 3600
+
+    - name: Upgrade all packages on servers
+      become: true
+      ansible.builtin.apt:
+        upgrade: dist
+        force_apt_get: true
+
+    - name: Check if a reboot is needed on all servers
+      register: reboot_required_file
+      ansible.builtin.stat:
+        path: /var/run/reboot-required
+        get_md5: false
+
+    - name: Reboot the box if kernel updated
+      become: true
+      ansible.builtin.reboot:
+        msg: "Reboot initiated by Ansible for kernel updates"
+        connect_timeout: 5
+        reboot_timeout: 300
+        pre_reboot_delay: 0
+        post_reboot_delay: 30
+        test_command: uptime
+      when: reboot_required_file.stat.exists
+
+    - name: Install packages
+      become: true
+      ansible.builtin.apt:
+        state: present
+        name:
+          - zsh
+          - git
+          - htop
+          - btop
+          - curl
+
+    # Set up terminal
+    - name: Clone Oh My Zsh
+      ansible.builtin.git:
+        repo: https://github.com/ohmyzsh/ohmyzsh.git
+        dest: "~/.oh-my-zsh"
+        clone: true
+        depth: 1
+        version: master
+
+    - name: Clone Powerlevel10k
+      ansible.builtin.git:
+        repo: https://github.com/romkatv/powerlevel10k.git
+        dest: "~/.oh-my-zsh/custom/themes/powerlevel10k"
+        clone: true
+        depth: 1
+        version: master
+
+    - name: Clone zsh-autosuggestions
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions.git
+        dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+        clone: true
+        depth: 1
+        version: master
+
+    - name: Clone zsh-syntax-highlighting
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+        dest: "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+        clone: true
+        depth: 1
+        version: master
+
+    - name: Clone fzf
+      ansible.builtin.git:
+        repo: https://github.com/junegunn/fzf.git
+        dest: "~/.fzf"
+        clone: true
+        depth: 1
+        version: 0.35.1
+
+    - name: Download fzf binary
+      ansible.builtin.command: ~/.fzf/install --bin
+      register: result
+      changed_when:
+        - '"Already exists" not in result.stdout'
+
+    - name: Write .zshrc
+      ansible.builtin.copy:
+        src: files/zshrc
+        dest: "~/.zshrc"
+        mode: "0644"
+
+    - name: Write .p10k.zsh
+      ansible.builtin.copy:
+        src: files/p10k.zsh
+        dest: "~/.p10k.zsh"
+        mode: "0644"
+
+    - name: Write .fzf.zsh
+      ansible.builtin.copy:
+        src: files/fzf.zsh
+        dest: "~/.fzf.zsh"
+        mode: "0644"
+
+    - name: Set default shell for users
+      become: true
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        shell: "/bin/zsh"
