@@ -1,0 +1,71 @@
+---
+# Set up terminal
+- name: Clone Oh My Zsh
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: "~/.oh-my-zsh"
+    clone: true
+    depth: 1
+    version: master
+
+- name: Clone Powerlevel10k
+  ansible.builtin.git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: "~/.oh-my-zsh/custom/themes/powerlevel10k"
+    clone: true
+    depth: 1
+    version: master
+
+- name: Clone zsh-autosuggestions
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    clone: true
+    depth: 1
+    version: master
+
+- name: Clone zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: "~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    clone: true
+    depth: 1
+    version: master
+
+- name: Clone fzf
+  ansible.builtin.git:
+    repo: https://github.com/junegunn/fzf.git
+    dest: "~/.fzf"
+    clone: true
+    depth: 1
+    version: 0.35.1
+
+- name: Download fzf binary
+  ansible.builtin.command: ~/.fzf/install --bin
+  register: result
+  changed_when:
+    - '"Already exists" not in result.stdout'
+
+- name: Write .zshrc
+  ansible.builtin.copy:
+    src: files/zshrc
+    dest: "~/.zshrc"
+    mode: "0644"
+
+- name: Write .p10k.zsh
+  ansible.builtin.copy:
+    src: files/p10k.zsh
+    dest: "~/.p10k.zsh"
+    mode: "0644"
+
+- name: Write .fzf.zsh
+  ansible.builtin.copy:
+    src: files/fzf.zsh
+    dest: "~/.fzf.zsh"
+    mode: "0644"
+
+- name: Set default shell for users
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    shell: "/bin/zsh"
