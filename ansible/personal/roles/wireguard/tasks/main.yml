@@ -1,0 +1,7 @@
+---
+- name: Install packages
+  become: true
+  ansible.builtin.apt:
+    state: present
+    name:
+      - wireguard

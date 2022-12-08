@@ -1,8 +1,0 @@
-host_list:
-  hosts:
-    vagrant_web:
-      ansible_user: vagrant
-      ansible_host: 192.168.33.10
-    vagrant_lab:
-      ansible_user: vagrant
-      ansible_host: 192.168.66.20
