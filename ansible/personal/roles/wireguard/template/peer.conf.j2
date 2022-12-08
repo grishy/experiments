@@ -1,0 +1,9 @@
+[Interface]
+Address = {{ wireguard_subnet_prefix }}.{{ idx + 100 }}
+PrivateKey = {{ wireguard__register_privatekey.stdout }}
+ListenPort = {{ wireguard_port }}
+
+[Peer]
+PublicKey = {{ wireguard_public_key }}
+Endpoint = {{ ansible_host }}:{{ wireguard_port }}
+AllowedIPs = 0.0.0.0/0

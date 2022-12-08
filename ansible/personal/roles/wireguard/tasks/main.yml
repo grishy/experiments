@@ -5,3 +5,91 @@
     state: present
     name:
       - wireguard
+      - qrencode
+
+- name: Enable and persist ip forwarding
+  become: true
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    state: present
+    sysctl_set: true
+    reload: true
+
+# Private key
+- name: Register if config/private key already exists on target host
+  become: true
+  ansible.builtin.stat:
+    path: "/etc/wireguard/{{ wireguard_interface }}.conf"
+  register: wireguard__register_config_file
+
+- name: WireGuard private key handling for new keys
+  when:
+    - not wireguard__register_config_file.stat.exists
+  block:
+    - name: Generate WireGuard private key
+      ansible.builtin.command: "wg genkey"
+      register: wireguard__register_private_key
+      changed_when: false
+
+    - name: Set private key fact
+      ansible.builtin.set_fact:
+        wireguard_private_key: "{{ wireguard__register_private_key.stdout }}"
+
+- name: WireGuard private key handling for existing keys
+  when:
+    - wireguard__register_config_file.stat.exists
+  block:
+    - name: Read WireGuard config file
+      become: true
+      ansible.builtin.slurp:
+        src: "/etc/wireguard/{{ wireguard_interface }}.conf"
+      register: wireguard__register_config
+
+    - name: Set private key fact
+      ansible.builtin.set_fact:
+        wireguard_private_key: "{{ wireguard__register_config['content'] | b64decode | regex_findall('PrivateKey = (.*)') | first }}"
+
+# Public key
+- name: Derive WireGuard public key
+  ansible.builtin.command: "wg pubkey"
+  args:
+    stdin: "{{ wireguard_private_key }}"
+  register: wireguard__register_public_key
+  changed_when: false
+
+- name: Set public key fact
+  ansible.builtin.set_fact:
+    wireguard_public_key: "{{ wireguard__register_public_key.stdout }}"
+
+# Users
+- name: Create directory for each user
+  loop: "{{ wireguard_peers }}"
+  loop_control:
+    index_var: idx
+  ansible.builtin.include_tasks:
+    file: peer.yml
+
+- name: Get all peer configs
+  ansible.posix.synchronize:
+    mode: pull
+    src: "{{ wireguard_peers_dir }}/"
+    dest: ./peers
+    delete: yes
+    recursive: yes
+
+# Configuration and systemd
+- name: Generate wireguard configuration file
+  become: true
+  ansible.builtin.template:
+    src: "template/wg.conf.j2"
+    dest: "/etc/wireguard/{{ wireguard_interface }}.conf"
+    mode: 000
+  register: wireguard__register_conf
+
+- name: Start/Restart wireguard and enable on boot
+  become: true
+  ansible.builtin.systemd:
+    name: "wg-quick@{{ wireguard_interface }}"
+    enabled: true
+    state: "{{ 'restarted' if wireguard__register_conf.changed else 'started' }}"

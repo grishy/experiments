@@ -19,7 +19,8 @@
   ansible.builtin.user:
     name: "{{ ansible_user }}"
     generate_ssh_key: true
-  become: true
+  become:
+    true
 
     # Update and install packages
 - name: Update apt repo and cache on all Debian/Ubuntu boxes

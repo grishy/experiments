@@ -1,8 +1,9 @@
-host_list:
+all:
   hosts:
     vagrant:
       ansible_user: vagrant
       ansible_host: 192.168.33.10
-    # vds:
-    #   ansible_user: pi
-    #   ansible_host: 192.168.2.131
+  vars:
+    wireguard_peers:
+      - grishy_macbook
+      - grishy_iphone

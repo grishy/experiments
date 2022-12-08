@@ -1,0 +1,44 @@
+---
+- name: "<{{ item }}> Crete directory for peer"
+  become: true
+  register: wireguard__register_peer_dir
+  ansible.builtin.file:
+    path: "{{ wireguard_peers_dir }}/{{ item }}"
+    state: directory
+
+- name: "<{{ item }}> Generate conf for peer"
+  when:
+    - not wireguard__register_peer_dir.changed
+  block:
+    - name: "<{{ item }}> Generate private key"
+      ansible.builtin.command: "wg genkey"
+      register: wireguard__register_privatekey
+
+    - name: "<{{ item }}> Derive WireGuard public key"
+      ansible.builtin.command: "wg pubkey"
+      args:
+        stdin: "{{ wireguard__register_privatekey.stdout }}"
+      register: wireguard__register_publickey
+
+    - name: "<{{ item }}> Write private key"
+      become: true
+      ansible.builtin.copy:
+        dest: "{{ wireguard_peers_dir }}/{{ item }}/privatekey"
+        content: "{{ wireguard__register_privatekey.stdout }}"
+
+    - name: "<{{ item }}> Write public key"
+      become: true
+      ansible.builtin.copy:
+        dest: "{{ wireguard_peers_dir }}/{{ item }}/publickey"
+        content: "{{ wireguard__register_publickey.stdout }}"
+
+    - name: "<{{ item }}> Generate wireguard configuration file"
+      become: true
+      ansible.builtin.template:
+        src: "template/peer.conf.j2"
+        dest: "{{ wireguard_peers_dir }}/{{ item }}/peer.conf"
+      register: wireguard__register_conf
+
+    - name: "<{{ item }}> Generate QR"
+      become: true
+      ansible.builtin.shell: "qrencode -o {{ wireguard_peers_dir }}/{{ item }}/qr.png < {{ wireguard__register_conf.dest }}"

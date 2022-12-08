@@ -7,7 +7,7 @@
 ## Set up
 
 ```
-$ ansible-playbook playbook.yaml -K
+$ ansible-playbook playbook.yml
 ```
 
 ## Local debug

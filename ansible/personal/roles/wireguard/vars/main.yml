@@ -1,0 +1,9 @@
+###########################
+## WireGuard Server Vars ##
+###########################
+
+wireguard_interface: "wg0"
+wireguard_subnet_prefix: "10.13.13"
+wireguard_subnet: "{{ wireguard_subnet_prefix }}.0/24"
+wireguard_port: "51820"
+wireguard_peers_dir: /etc/wireguard_peers
