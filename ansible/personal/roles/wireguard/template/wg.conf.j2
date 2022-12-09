@@ -1,22 +1,16 @@
 [Interface]
 Address = {{ wireguard_server_ip }}
-PrivateKey = {{ wireguard_private_key }}
 ListenPort = {{ wireguard_port }}
+PrivateKey = {{ wireguard_private_key }}
+PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o {{ wireguard_public_interface }} -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o {{ wireguard_public_interface }} -j MASQUERADE
+DNS = 8.8.8.8
 
-PostUp = iptables -A FORWARD -i %i -j ACCEPT
-PostUp = iptables -A FORWARD -o %i -j ACCEPT
-PostUp = iptables -t nat -A POSTROUTING -o eth+ -j MASQUERADE
-PostDown = iptables -D FORWARD -i %i -j ACCEPT
-PostDown = iptables -D FORWARD -o %i -j ACCEPT
-PostDown = iptables -t nat -D POSTROUTING -o eth+ -j MASQUERADE
-
-#####################
-# Users
-#####################
 {% for peer in wireguard_peers_cfg.keys() %}
 [Peer]
 # {{ peer }}
 PublicKey = {{ wireguard_peers_cfg[peer].publickey }}
 AllowedIPs = {{ wireguard_peers_cfg[peer].ip }}/32
+PersistentKeepalive = 30
 
 {%   endfor %}
