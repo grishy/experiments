@@ -6,6 +6,8 @@
     name:
       - wireguard
       - qrencode
+      - iptables
+      - resolvconf
 
 - name: Enable and persist ip forwarding
   become: true
@@ -75,10 +77,14 @@
     mode: pull
     src: "{{ wireguard_peers_dir }}/"
     dest: ./peers
-    delete: yes
-    recursive: yes
+    delete: true
+    recursive: true
 
 # Configuration and systemd
+- name: Set wireguard IP fact
+  ansible.builtin.set_fact:
+    wireguard_server_ip: "{{ wireguard_subnet_prefix }}.1"
+
 - name: Generate wireguard configuration file
   become: true
   ansible.builtin.template:

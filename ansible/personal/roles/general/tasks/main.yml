@@ -62,4 +62,5 @@
       - git
       - htop
       - btop
+      - rsync
       - tree

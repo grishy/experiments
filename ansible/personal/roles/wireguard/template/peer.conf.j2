@@ -1,5 +1,9 @@
+# Info
+# Name = {{ item }}
+# PublicKey = {{ wireguard__register_publickey.stdout }}
+
 [Interface]
-Address = {{ wireguard_subnet_prefix }}.{{ idx + 100 }}
+Address = {{ wireguard_peer_ip }}
 PrivateKey = {{ wireguard__register_privatekey.stdout }}
 ListenPort = {{ wireguard_port }}
 
