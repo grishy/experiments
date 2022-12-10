@@ -63,4 +63,5 @@
       - htop
       - btop
       - rsync
+      - nano
       - tree

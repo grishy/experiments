@@ -5,4 +5,4 @@
     - general
     - terminal
     - docker
-    - wireguard
+    # - wireguard
