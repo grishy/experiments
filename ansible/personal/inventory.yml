@@ -1,9 +1,5 @@
 all:
   hosts:
-    vagrant:
-      ansible_user: vagrant
-      ansible_host: 192.168.33.10
-  vars:
-    wireguard_peers:
-      - grishy_macbook
-      - grishy_iphone
+    target_machine:
+      ansible_user: parallels
+      ansible_host: 10.211.55.66

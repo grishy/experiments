@@ -1,0 +1,66 @@
+/* 
+Comments
+https://patorjk.com/software/taag/#p=display&f=Big&t=CV
+*/
+
+/* 
+  _____      _       _   
+ |  __ \    (_)     | |  
+ | |__) | __ _ _ __ | |_ 
+ |  ___/ '__| | '_ \| __|
+ | |   | |  | | | | | |_ 
+ |_|   |_|  |_|_| |_|\__|
+*/
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+.sheet {
+  width: 210mm;
+  height: 297mm;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  page-break-after: always;
+}
+
+.sheet-2 {
+  height: 594mm;
+}
+
+/** For screen preview **/
+@media screen {
+  .sheet {
+    box-shadow: 0 0.5mm 2mm rgba(0, 0, 0, 0.3);
+    margin: 5mm auto;
+  }
+}
+
+/* 
+  _    _ _______ __  __ _      
+ | |  | |__   __|  \/  | |     
+ | |__| |  | |  | \  / | |     
+ |  __  |  | |  | |\/| | |     
+ | |  | |  | |  | |  | | |____ 
+ |_|  |_|  |_|  |_|  |_|______|
+ */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(75, 75, 75);
+  font-family: "Roboto", sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.mc-cards > div {
+  background-color: aqua;
+}

@@ -61,7 +61,6 @@
       - zsh
       - git
       - htop
-      - btop
       - rsync
       - nano
       - tree

@@ -8,6 +8,8 @@
 
 ```
 $ ansible-playbook playbook.yml
+or
+$ ansible-playbook playbook.yml -v -kK # ask for sudo password, ask for ssh password
 ```
 
 ## Local debug
